@@ -66,4 +66,5 @@ export const legalLinks = [
   { href: '/legal#privacy', label: 'Privacy' },
   { href: '/legal#cookies', label: 'Cookies' },
   { href: '/legal#licence', label: 'Licence & registration' },
+  { href: '/credits', label: 'Photo credits' },
 ] as const;

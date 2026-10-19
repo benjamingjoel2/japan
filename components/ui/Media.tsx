@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { Media as MediaT } from '@/data/types';
 import { palettes, seedOf } from '@/lib/placeholder';
+import { photoFor, unsplashLoader } from '@/lib/unsplash';
 
 export function placeholderUrl(media: Pick<MediaT, 'tone' | 'subject'>) {
   return `/ph/${media.tone}/${seedOf(media.subject)}.svg`;
@@ -37,17 +38,29 @@ type Props = {
   label?: boolean;
 };
 
-/** Fills its (relative) parent. Real image if `src` is set, otherwise placeholder art. */
+/**
+ * Fills its (relative) parent. Order of preference: the media's own `src` (your photography),
+ * then the Unsplash photo mapped to its subject in /data/photos.ts, then generated placeholder art.
+ */
 export function Media({ media, sizes = '100vw', priority, className = '', label }: Props) {
+  const tone = palettes[media.tone] ?? palettes.paper;
   if (media.src) {
     return (
+      <Image src={media.src} alt={media.alt ?? media.subject} fill sizes={sizes} priority={priority} className={`object-cover ${className}`} />
+    );
+  }
+  const photo = photoFor(media.subject);
+  if (photo) {
+    return (
       <Image
-        src={media.src}
-        alt={media.alt ?? media.subject}
+        loader={unsplashLoader}
+        src={photo.src}
+        alt={photo.alt}
         fill
         sizes={sizes}
         priority={priority}
         className={`object-cover ${className}`}
+        style={{ backgroundColor: tone.bg[0] }}
       />
     );
   }

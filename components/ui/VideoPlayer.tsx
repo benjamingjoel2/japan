@@ -3,7 +3,8 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import type { VideoMedia } from '@/data/types';
-import { Placeholder } from './Media';
+import { Media } from './Media';
+import { photoFor } from '@/lib/unsplash';
 
 /**
  * Ambient, muted, looping video that fills its (relative) parent.
@@ -53,6 +54,7 @@ export function VideoPlayer({
           loop
           playsInline
           preload="metadata"
+          poster={photoFor(media.subject) ? `${photoFor(media.subject)!.src}?w=1600&q=70&auto=format&fit=crop` : undefined}
           aria-label={media.alt ?? media.subject}
         >
           <source src={url} type="video/mp4" />
@@ -64,10 +66,10 @@ export function VideoPlayer({
           aria-label={media.alt ?? media.subject}
           className={`absolute -inset-[4%] ${drift && !reduce ? 'animate-[drift_24s_ease-in-out_infinite_alternate]' : ''}`}
         >
-          <Placeholder media={media} label={false} priority />
+          <Media media={media} label={false} priority sizes="100vw" />
         </div>
       )}
-      {!url && label && (
+      {!url && label && !photoFor(media.subject) && !media.src && (
         <span className="pointer-events-none absolute right-[var(--gutter)] bottom-3 z-[1] hidden max-w-[60%] text-right md:block text-[10px] tracking-wide text-white/60 uppercase">
           Video placeholder · {media.subject}
         </span>
