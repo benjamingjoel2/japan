@@ -11,6 +11,8 @@
   --color-night: #1b2220;
   --color-night-soft: #26302d;
   --color-line: rgb(30 29 26 / 0.16);
+  --color-blossom: #c85f86;
+  --color-koyo: #a0661a;
 
   --font-display: var(--font-fraunces), 'Iowan Old Style', Georgia, serif;
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
