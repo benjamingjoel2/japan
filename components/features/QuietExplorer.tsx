@@ -62,7 +62,7 @@ export function QuietExplorer({ destinationNames }: { destinationNames: Record<s
               const [x, y] = project(p.lat, p.lng);
               const on = hover === p.id;
               return (
-                <a key={p.id} href={`#${p.id}`} onMouseEnter={() => setHover(p.id)} onMouseLeave={() => setHover(null)}>
+                <a key={p.id} href={`#${p.id}`} aria-label={p.quieter} onMouseEnter={() => setHover(p.id)} onMouseLeave={() => setHover(null)}>
                   <circle cx={x} cy={y} r={on ? 16 : 10} fill={on ? 'var(--color-beni)' : 'var(--color-moss)'} stroke="var(--color-washi)" strokeWidth={3} />
                   {on && (
                     <text x={x + 20} y={y + 8} fontSize={24} fill="currentColor" stroke="var(--color-washi)" strokeWidth={6} paintOrder="stroke">

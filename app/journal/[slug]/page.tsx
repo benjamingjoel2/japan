@@ -4,7 +4,7 @@ import { formatDate, getPost, getPosts, postSlugs } from '@/lib/journal';
 import { pageMeta } from '@/lib/seo';
 import { site } from '@/config/site';
 import { Media } from '@/components/ui/Media';
-import { SplitWords } from '@/components/ui/Reveal';
+import { HeadingWords } from '@/components/ui/HeadingWords';
 import { Button } from '@/components/ui/Button';
 import { JsonLd } from '@/components/ui/JsonLd';
 
@@ -47,7 +47,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </Link>{' '}
           · <time dateTime={p.date}>{formatDate(p.date)}</time> · {p.readingMinutes} min read
         </p>
-        <SplitWords as="h1" text={p.title} className="max-w-[18ch] text-h2" />
+        <HeadingWords text={p.title} className="max-w-[18ch] text-h2" />
         <p className="mt-5 max-w-[40ch] text-lead">{p.description}</p>
         <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-media md:aspect-[21/9]">
           <Media media={{ subject: p.title, tone: p.tone }} sizes="100vw" priority />

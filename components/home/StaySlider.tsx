@@ -88,17 +88,18 @@ export function StaySlider() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="mt-6 flex justify-center gap-2" role="tablist" aria-label="Choose a stay">
+      <div className="mt-6 flex justify-center gap-0.5" role="group" aria-label="Choose a stay">
         {stays.map((st, n) => (
           <button
             key={st.slug}
             type="button"
-            role="tab"
-            aria-selected={n === i}
+            aria-pressed={n === i}
             aria-label={st.name}
             onClick={() => setI(n)}
-            className={`h-1.5 rounded-full transition-all duration-500 ${n === i ? 'w-6 bg-sumi' : 'w-1.5 bg-sumi/25'}`}
-          />
+            className="grid h-6 min-w-6 place-items-center"
+          >
+            <span className={`block h-1.5 rounded-full transition-all duration-500 ${n === i ? 'w-6 bg-sumi' : 'w-1.5 bg-sumi/25'}`} />
+          </button>
         ))}
       </div>
     </section>

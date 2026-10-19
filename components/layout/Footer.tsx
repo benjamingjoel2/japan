@@ -42,7 +42,7 @@ export function Footer() {
             <ul className="flex flex-col gap-1.5 pt-2 text-label text-washi/80">
               {pages.map((p) => (
                 <li key={p.href}>
-                  <Link href={p.href} className="hover:text-washi">
+                  <Link href={p.href} className="inline-block py-0.5 hover:text-washi">
                     {p.label}
                   </Link>
                 </li>
@@ -52,13 +52,13 @@ export function Footer() {
 
           <div className="flex flex-col gap-1.5 text-label text-washi/80 md:items-end md:text-right">
             {site.socials.map((s) => (
-              <a key={s.label} href={s.href} className="hover:text-washi">
+              <a key={s.label} href={s.href} className="py-0.5 hover:text-washi">
                 {s.label}
               </a>
             ))}
             <div className="mt-6 flex flex-col gap-1.5 md:items-end">
               {legalLinks.map((l) => (
-                <Link key={l.href} href={l.href} className="hover:text-washi">
+                <Link key={l.href} href={l.href} className="py-0.5 hover:text-washi">
                   {l.label}
                 </Link>
               ))}

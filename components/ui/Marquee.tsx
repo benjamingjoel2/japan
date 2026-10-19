@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useMediaQuery, usePrefersReducedMotion } from '@/lib/hooks';
 
 /**
  * Endless horizontal track. Auto-scrolls (speed px/frame), drag to scroll,
@@ -22,17 +23,13 @@ export function Marquee({
   controlsClassName?: string;
 }) {
   const track = useRef<HTMLDivElement>(null);
-  const [auto, setAuto] = useState(false);
+  const reduce = usePrefersReducedMotion();
+  const wide = useMediaQuery('(min-width: 768px)');
+  const auto = wide && !reduce;
   const [paused, setPaused] = useState(false);
   const hover = useRef(false);
   const x = useRef(0);
   const drag = useRef<{ start: number; x: number; moved: boolean } | null>(null);
-
-  useEffect(() => {
-    const ok =
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(min-width: 768px)').matches;
-    setAuto(ok);
-  }, []);
 
   useEffect(() => {
     if (!auto) return;

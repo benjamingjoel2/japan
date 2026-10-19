@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { blossomRegions } from '@/data/blossom';
 import type { BlossomRegion, MonthDay } from '@/data/types';
 import { dayOfYear, formatRange, MONTH_NAMES } from '@/lib/seasons';
@@ -39,12 +39,14 @@ export function BlossomPlanner({
   journeyTitles: Record<string, string>;
   destinationNames: Record<string, string>;
 }) {
-  const [mode, setMode] = useState<Mode>('blossom');
+  const [mode, setModeState] = useState<Mode>('blossom');
   const cfg = MODES[mode];
   const [doy, setDoy] = useState(cfg.def);
+  const setMode = (m: Mode) => {
+    setModeState(m);
+    setDoy(MODES[m].def);
+  };
   const [hover, setHover] = useState<string | null>(null);
-
-  useEffect(() => setDoy(MODES[mode].def), [mode]);
 
   // Blossom travels south → north, leaves north → south: sort so the wave reads top to bottom.
   const rows = useMemo(
@@ -202,7 +204,8 @@ export function BlossomPlanner({
       </div>
 
       {/* Region notes: the table view, with links */}
-      <ul className="mt-16 grid gap-x-[var(--gap)] md:grid-cols-2 xl:grid-cols-3">
+      <h2 className="mt-16 mb-2 text-h3">Region by region</h2>
+      <ul className="mt-4 grid gap-x-[var(--gap)] md:grid-cols-2 xl:grid-cols-3">
         {rows.map((r) => (
           <li key={r.id} className="border-t border-line py-5">
             <h3 className="font-display text-[26px] leading-tight">

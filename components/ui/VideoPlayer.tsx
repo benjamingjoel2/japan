@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { usePrefersReducedMotion } from '@/lib/hooks';
 import type { VideoMedia } from '@/data/types';
 import { Placeholder } from './Media';
 
@@ -25,12 +26,8 @@ export function VideoPlayer({
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
-  const [reduce, setReduce] = useState(false);
+  const reduce = usePrefersReducedMotion();
   const url = src || media.video;
-
-  useEffect(() => {
-    setReduce(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  }, []);
 
   useEffect(() => {
     const v = ref.current;
@@ -67,7 +64,7 @@ export function VideoPlayer({
           aria-label={media.alt ?? media.subject}
           className={`absolute -inset-[4%] ${drift && !reduce ? 'animate-[drift_24s_ease-in-out_infinite_alternate]' : ''}`}
         >
-          <Placeholder media={media} label={false} />
+          <Placeholder media={media} label={false} priority />
         </div>
       )}
       {!url && label && (

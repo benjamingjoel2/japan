@@ -14,7 +14,7 @@ export function SpecTable({
     <dl className={`grid gap-x-5 gap-y-2.5 ${grid} ${className}`}>
       {rows.map((r) => (
         <div key={r.label} className="flex flex-col">
-          <dt className={`text-label first-letter:uppercase ${dark ? 'text-moss-light' : 'text-moss'}`}>{r.label}</dt>
+          <dt className={`text-label first-letter:uppercase ${dark ? 'text-moss-pale' : 'text-moss'}`}>{r.label}</dt>
           <dd className={`text-label first-letter:uppercase ${dark ? 'text-washi' : 'text-sumi'}`}>{r.value}</dd>
         </div>
       ))}

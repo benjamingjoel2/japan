@@ -68,7 +68,12 @@ export function Header() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
-  useEffect(() => setOpen(false), [pathname]);
+  // Close the menu on navigation (state adjusted during render, not in an effect).
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   const href = (id: string) => (isHome ? `#${id}` : `/#${id}`);
   const light = overHero && !open;
@@ -81,7 +86,7 @@ export function Header() {
         } ${light ? 'bg-transparent' : 'bg-washi/85 backdrop-blur-md'}`}
       >
         <div className="flex h-[var(--header-h)] items-center justify-between px-gutter">
-          <Link href={isHome ? '#top' : '/'} aria-label="Komorebi, home" className="relative z-10">
+          <Link href={isHome ? '#top' : '/'} className="relative z-10">
             <Logo light={light} />
           </Link>
 

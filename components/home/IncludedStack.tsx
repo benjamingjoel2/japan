@@ -22,7 +22,7 @@ export function IncludedStack() {
   return (
     <div ref={ref} className="relative px-gutter pb-section">
       <div className="sticky top-[var(--header-h)] z-20 bg-washi pt-6 pb-4 lg:top-0 lg:pt-[3vw] lg:pb-[2vw]">
-        <h3 className="text-center font-display text-[40px] leading-none text-moss-light md:text-[7vw] lg:text-h2">
+        <h3 className="text-center font-display text-[40px] leading-none text-moss md:text-[7vw] lg:text-h2">
           Included in{' '}
           <span className="transition-colors duration-700" style={{ color: accents[i] }}>
             every

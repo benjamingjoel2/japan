@@ -9,7 +9,8 @@ import { site } from '@/config/site';
 import { Media } from '@/components/ui/Media';
 import { Price, CurrencySwitcher } from '@/components/ui/Price';
 import { Button } from '@/components/ui/Button';
-import { Reveal, SplitWords } from '@/components/ui/Reveal';
+import { Reveal } from '@/components/ui/Reveal';
+import { HeadingWords } from '@/components/ui/HeadingWords';
 import { SpecTable } from '@/components/ui/SpecTable';
 import { StayCard, JourneyCard, monthsLabel } from '@/components/cards/Cards';
 import { JsonLd } from '@/components/ui/JsonLd';
@@ -62,7 +63,7 @@ export default async function JourneyPage({ params }: { params: Promise<{ slug: 
             </Link>{' '}
             · {j.days} days
           </p>
-          <SplitWords as="h1" text={j.title} className="mt-3 max-w-[18ch] text-h2" />
+          <HeadingWords text={j.title} className="mt-3 max-w-[18ch] text-h2" />
           <p className="mt-4 max-w-[40ch] text-lead">{j.tagline}</p>
         </div>
       </header>
@@ -166,7 +167,7 @@ export default async function JourneyPage({ params }: { params: Promise<{ slug: 
               {kos.slice(0, 12).map((k) => (
                 <li key={k.n}>
                   <Link href={`/seasons#ko-${k.n}`} className="group block">
-                    <span className="text-[12px] text-moss-light tabular-nums">{formatRange(k.start, k.end)}</span>
+                    <span className="text-[12px] text-moss-pale tabular-nums">{formatRange(k.start, k.end)}</span>
                     <span className="block text-[15px] group-hover:underline">
                       <span lang="ja" className="mr-2 font-jp">
                         {k.ja}

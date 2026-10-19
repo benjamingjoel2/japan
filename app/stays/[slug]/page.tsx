@@ -7,7 +7,8 @@ import { pageMeta } from '@/lib/seo';
 import { Media } from '@/components/ui/Media';
 import { Button } from '@/components/ui/Button';
 import { SpecTable } from '@/components/ui/SpecTable';
-import { SplitWords, Reveal } from '@/components/ui/Reveal';
+import { Reveal } from '@/components/ui/Reveal';
+import { HeadingWords } from '@/components/ui/HeadingWords';
 import { PlaceholderTag } from '@/components/ui/Tags';
 import { JourneyCard, staySpecRows } from '@/components/cards/Cards';
 
@@ -55,7 +56,7 @@ export default async function StayPage({ params }: { params: Promise<{ slug: str
             <Media media={s.images[0]} sizes="(min-width: 768px) 45vw, 100vw" priority />
           </Reveal>
           <div className="flex flex-col gap-4 md:px-[1vw]">
-            <SplitWords as="h1" text={s.name} className="font-display text-[44px] leading-none md:text-[7vw] lg:text-[4.4vw]" />
+            <HeadingWords text={s.name} className="font-display text-[44px] leading-none md:text-[7vw] lg:text-[4.4vw]" />
             <p className="text-lead">{s.summary}</p>
             {s.description.map((p, i) => (
               <p key={i} className="text-body text-sumi-soft">

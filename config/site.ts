@@ -6,7 +6,12 @@ export const site = {
   tagline: 'Japan, in its own time.',
   description:
     'Private, slow journeys in Japan, planned around the seasons and away from the crowds. Ryokan nights, quiet temples at opening time, craft, food and the 72 seasons.',
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://komorebi.example',
+  // Set NEXT_PUBLIC_SITE_URL once the real domain exists; on Vercel the production domain is used meanwhile.
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : 'http://localhost:3000'),
   locale: 'en_GB',
   heroTags: [
     ['Private journeys', 'Seasonal'],

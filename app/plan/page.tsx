@@ -23,7 +23,7 @@ export default function PlanPage() {
       </PageHeader>
       <div className="grid gap-10 px-gutter pb-section lg:grid-cols-[1fr_44rem_1fr]">
         <div className="lg:col-start-2">
-          <Suspense fallback={null}>
+          <Suspense fallback={<div className="min-h-[2200px]" aria-hidden="true" />}>
             <PlanForm journeyTitles={Object.fromEntries(journeys.map((j) => [j.slug, j.title]))} />
           </Suspense>
         </div>

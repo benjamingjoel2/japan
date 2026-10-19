@@ -6,7 +6,8 @@
   --color-sumi: #1e1d1a;
   --color-sumi-soft: #3b3934;
   --color-moss: #5f6b4d;
-  --color-moss-light: #8e9a7a;
+  --color-moss-light: #76815f;
+  --color-moss-pale: #a9b294;
   --color-beni: #b4472e;
   --color-night: #1b2220;
   --color-night-soft: #26302d;
@@ -16,7 +17,7 @@
 
   --font-display: var(--font-display-face), 'Iowan Old Style', Georgia, serif;
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-jp: var(--font-noto-jp), 'Hiragino Mincho ProN', serif;
+  --font-jp: 'Hiragino Mincho ProN', 'Hiragino Mincho Pro', 'Yu Mincho', YuMincho, 'Noto Serif JP', 'Noto Serif CJK JP', 'Source Han Serif JP', serif;
 
   --breakpoint-sm: 480px;
   --breakpoint-md: 768px;
@@ -124,6 +125,15 @@
 
 @utility balance { text-wrap: balance; }
 @utility pretty { text-wrap: pretty; }
+
+/* Entrance animations that run before hydration (page-top content, LCP-safe). */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(1rem); filter: blur(5px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes word-up { from { transform: translateY(105%); } to { transform: none; } }
+.rise-in { animation: rise-in 1s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
+.word-up { animation: word-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
 
 /* Blinking clock colon. */
 @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.15; } }

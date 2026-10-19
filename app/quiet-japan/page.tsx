@@ -42,7 +42,7 @@ export default function QuietPage() {
             {guestPrinciples.map((g, i) => (
               <Reveal as="li" key={g.title} delay={i * 0.06} className="border-t border-washi/20 py-5">
                 <h3 className="flex gap-3 text-h3">
-                  <span className="text-moss-light tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-moss-pale tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                   {g.title}
                 </h3>
                 <p className="mt-2 max-w-[48ch] pl-10 text-body text-washi/80">{g.body}</p>

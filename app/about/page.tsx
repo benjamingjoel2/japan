@@ -39,7 +39,7 @@ export default function AboutPage() {
         <ol className="grid gap-x-[var(--gap)] gap-y-8 md:grid-cols-2 lg:grid-cols-4">
           {about.principles.map((p, i) => (
             <Reveal as="li" key={p.title} delay={i * 0.06} className="border-t border-washi/25 pt-4">
-              <span className="text-[13px] text-moss-light tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+              <span className="text-[13px] text-moss-pale tabular-nums">{String(i + 1).padStart(2, '0')}</span>
               <h3 className="mt-2 text-h3">{p.title}</h3>
               <p className="mt-2 text-body text-washi/80">{p.body}</p>
             </Reveal>

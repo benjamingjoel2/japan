@@ -1,32 +1,42 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { useSyncExternalStore } from 'react';
 import { currencies, currencyOrder } from '@/config/currency';
 import type { Currency } from '@/data/types';
 
-const Ctx = createContext<{ currency: Currency; setCurrency: (c: Currency) => void }>({
-  currency: 'JPY',
-  setCurrency: () => {},
-});
+// The visitor's currency choice, kept in localStorage and shared by every price on the page.
+const KEY = 'komorebi:currency';
+const listeners = new Set<() => void>();
 
-export function CurrencyProvider({ children }: { children: ReactNode }) {
-  const [currency, setC] = useState<Currency>('JPY');
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('komorebi:currency') as Currency | null;
-      if (saved && currencyOrder.includes(saved)) setC(saved);
-    } catch {}
-  }, []);
-  const setCurrency = (c: Currency) => {
-    setC(c);
-    try {
-      localStorage.setItem('komorebi:currency', c);
-    } catch {}
-  };
-  return <Ctx.Provider value={{ currency, setCurrency }}>{children}</Ctx.Provider>;
+function read(): Currency {
+  try {
+    const saved = localStorage.getItem(KEY) as Currency | null;
+    if (saved && currencyOrder.includes(saved)) return saved;
+  } catch {}
+  return 'JPY';
 }
 
-export const useCurrency = () => useContext(Ctx);
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  const onStorage = (e: StorageEvent) => e.key === KEY && cb();
+  window.addEventListener('storage', onStorage);
+  return () => {
+    listeners.delete(cb);
+    window.removeEventListener('storage', onStorage);
+  };
+}
+
+function setCurrency(c: Currency) {
+  try {
+    localStorage.setItem(KEY, c);
+  } catch {}
+  listeners.forEach((l) => l());
+}
+
+export function useCurrency() {
+  const currency = useSyncExternalStore(subscribe, read, () => 'JPY' as Currency);
+  return { currency, setCurrency };
+}
 
 export function formatPrice(jpy: number, c: Currency) {
   const { rate, locale } = currencies[c];

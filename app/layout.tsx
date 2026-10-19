@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Instrument_Serif, Geist, Noto_Serif_JP } from 'next/font/google';
+import { Instrument_Serif, Geist } from 'next/font/google';
 import { site } from '@/config/site';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -12,18 +12,10 @@ import './globals.css';
 const display = Instrument_Serif({
   subsets: ['latin', 'latin-ext'],
   weight: '400',
-  style: ['normal', 'italic'],
   variable: '--font-display-face',
   display: 'swap',
 });
 const geist = Geist({ subsets: ['latin', 'latin-ext'], variable: '--font-geist', display: 'swap' });
-const notoJp = Noto_Serif_JP({
-  weight: ['400', '500'],
-  subsets: ['latin'],
-  variable: '--font-noto-jp',
-  display: 'swap',
-  preload: false,
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -48,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-GB" className={`${display.variable} ${geist.variable} ${notoJp.variable}`}>
+    <html lang="en-GB" className={`${display.variable} ${geist.variable}`}>
       <body>
         <a
           href="#main"

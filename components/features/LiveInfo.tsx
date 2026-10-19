@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
+import { useIsClient, useNow } from '@/lib/hooks';
 import { getMicroSeason } from '@/lib/seasons';
 import { KYOTO, formatMinutes, sunTimes } from '@/lib/sun';
 
@@ -13,12 +14,7 @@ function tokyoParts(d: Date) {
 
 /** Live Tokyo clock with a blinking colon. Renders a stable placeholder on the server. */
 export function TokyoClock() {
-  const [now, setNow] = useState<Date | null>(null);
-  useEffect(() => {
-    setNow(new Date());
-    const id = setInterval(() => setNow(new Date()), 15_000);
-    return () => clearInterval(id);
-  }, []);
+  const now = useNow(15_000);
   if (!now) return <span className="tabular-nums">--:--</span>;
   const { h, m } = tokyoParts(now);
   return (
@@ -33,17 +29,15 @@ export function TokyoClock() {
 }
 
 export function KyotoSunrise() {
-  const [t, setT] = useState<string | null>(null);
-  useEffect(() => {
-    setT(formatMinutes(sunTimes(new Date(), KYOTO.lat, KYOTO.lng, 9).sunrise));
-  }, []);
+  const client = useIsClient();
+  const t = useMemo(() => (client ? formatMinutes(sunTimes(new Date(), KYOTO.lat, KYOTO.lng, 9).sunrise) : null), [client]);
   return <span className="tabular-nums">{t ?? '--:--'}</span>;
 }
 
 /** Today's micro-season (computed in Japan time on the client so it never goes stale in a cached page). */
 export function MicroSeasonNow({ withLink = true, className = '' }: { withLink?: boolean; className?: string }) {
-  const [s, setS] = useState<ReturnType<typeof getMicroSeason> | null>(null);
-  useEffect(() => setS(getMicroSeason()), []);
+  const client = useIsClient();
+  const s = useMemo(() => (client ? getMicroSeason() : null), [client]);
   if (!s) return <span className={className}>&nbsp;</span>;
   const body = (
     <>

@@ -7,7 +7,8 @@ import { quietPairings } from '@/data/quiet';
 import { pageMeta } from '@/lib/seo';
 import { Media } from '@/components/ui/Media';
 import { Button } from '@/components/ui/Button';
-import { Reveal, SplitWords } from '@/components/ui/Reveal';
+import { Reveal } from '@/components/ui/Reveal';
+import { HeadingWords } from '@/components/ui/HeadingWords';
 import { JourneyCard, StayCard } from '@/components/cards/Cards';
 import { JapanMap } from '@/components/features/JapanMap';
 import { VerifyTag } from '@/components/ui/Tags';
@@ -50,7 +51,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
                 </span>
               )}
             </p>
-            <SplitWords as="h1" text={d.name} className="mt-3 max-w-[16ch] text-h2" />
+            <HeadingWords text={d.name} className="mt-3 max-w-[16ch] text-h2" />
             <p className="mt-4 max-w-[40ch] text-lead">{d.tagline}</p>
           </div>
           <div className="hidden w-40 shrink-0 md:block lg:w-[12vw]">

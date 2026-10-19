@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import type { Media as MediaT } from '@/data/types';
 import { Media } from './Media';
-import { Reveal, SplitWords } from './Reveal';
+import { Reveal } from './Reveal';
+import { HeadingWords } from './HeadingWords';
 
 /** Inner-page opener: label, big title, lead, optional full-width image. */
 export function PageHeader({
@@ -29,11 +30,11 @@ export function PageHeader({
           </span>
         )}
       </p>
-      <SplitWords as="h1" text={title} className="max-w-[16ch] text-h2" />
+      <HeadingWords text={title} className="max-w-[16ch] text-h2" />
       {lead && (
-        <Reveal as="div" className="mt-5 max-w-[38ch] text-lead lg:mt-[1.4vw]">
+        <div className="rise-in mt-5 max-w-[38ch] text-lead lg:mt-[1.4vw]" style={{ ['--d' as string]: '0.35s' }}>
           {lead}
-        </Reveal>
+        </div>
       )}
       {children && <div className="mt-8">{children}</div>}
       {image && (

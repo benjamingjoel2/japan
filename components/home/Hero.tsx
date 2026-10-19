@@ -1,35 +1,12 @@
-'use client';
-
-import { motion, useReducedMotion } from 'framer-motion';
 import { site } from '@/config/site';
 import { videos } from '@/config/media';
 import { VideoPlayer } from '@/components/ui/VideoPlayer';
-
-const ease = [0.22, 1, 0.36, 1] as const;
 
 /**
  * Full-screen sticky video. The wrapper is 200vh and the next section pulls itself up by
  * 100vh, so the page slides over the hero rather than the hero scrolling away.
  */
 export function Hero() {
-  const reduce = useReducedMotion();
-  const rise = (i: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { y: '100%' },
-          animate: { y: 0 },
-          transition: { duration: 1.4, ease, delay: 0.25 + i * 0.12 },
-        };
-  const fade = (i: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y: '1rem', filter: 'blur(5px)' },
-          animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-          transition: { duration: 1, ease, delay: 0.9 + i * 0.1 },
-        };
-
   return (
     <div id="top" className="relative h-[200svh]">
       <section aria-label="Komorebi" className="sticky top-0 flex h-svh flex-col overflow-hidden bg-night">
@@ -51,20 +28,24 @@ export function Hero() {
         <div className="relative mt-auto px-gutter pb-[3vw] text-washi lg:pb-[1.2vw]">
           <div className="flex items-end justify-between gap-6">
             {site.heroTags.map((pair, i) => (
-              <motion.p key={i} {...fade(i)} className={`flex flex-wrap gap-x-3 text-body ${i ? 'justify-end text-right' : ''}`}>
+              <p
+                key={i}
+                className={`rise-in flex flex-wrap gap-x-3 text-body ${i ? 'justify-end text-right' : ''}`}
+                style={{ ['--d' as string]: `${0.9 + i * 0.1}s` }}
+              >
                 {pair.map((t) => (
                   <span key={t}>{t}</span>
                 ))}
-              </motion.p>
+              </p>
             ))}
           </div>
           <h1 className="mt-2 flex justify-between font-display text-hero uppercase lg:mt-0">
             <span className="sr-only">Komorebi. {site.tagline}</span>
             {['Komo', 'rebi'].map((w, i) => (
               <span key={w} aria-hidden="true" className="block overflow-hidden pb-[0.04em]">
-                <motion.span className="block" {...rise(i)}>
+                <span className="word-up block" style={{ ['--d' as string]: `${0.25 + i * 0.12}s` }}>
                   {w}
-                </motion.span>
+                </span>
               </span>
             ))}
           </h1>

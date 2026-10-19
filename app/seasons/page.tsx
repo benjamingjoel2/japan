@@ -86,7 +86,7 @@ export default function SeasonsPage() {
                     >
                       <article className="flex h-full flex-col gap-2">
                         <header className="flex items-baseline justify-between gap-3">
-                          <span className="label tabular-nums group-data-[today=true]:text-moss-light">
+                          <span className="label tabular-nums group-data-[today=true]:text-moss-pale">
                             No. {s.n} · {s.sekkiEn}
                           </span>
                           <span className="text-[13px] text-sumi-soft tabular-nums group-data-[today=true]:text-washi/70">
@@ -97,7 +97,7 @@ export default function SeasonsPage() {
                           {s.ja}
                         </p>
                         <h3 className="font-display text-[26px] leading-tight lg:text-[1.7vw]">{s.en}</h3>
-                        <p className="text-[13px] text-moss italic group-data-[today=true]:text-moss-light">{s.romaji}</p>
+                        <p className="text-[13px] text-moss italic group-data-[today=true]:text-moss-pale">{s.romaji}</p>
                         <span data-today-badge hidden className="w-fit rounded-full bg-beni px-2 py-0.5 text-[11px] uppercase">
                           Today
                         </span>
@@ -107,7 +107,7 @@ export default function SeasonsPage() {
                             <dd>{s.nature}</dd>
                           </div>
                           <div className="flex gap-2">
-                            <dt className="shrink-0 text-moss group-data-[today=true]:text-moss-light">On the table</dt>
+                            <dt className="shrink-0 text-moss group-data-[today=true]:text-moss-pale">On the table</dt>
                             <dd>{s.onTheTable}</dd>
                           </div>
                         </dl>
