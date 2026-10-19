@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/lib/hooks';
 import { useRef } from 'react';
 import { ryokanNight } from '@/data/ryokan-night';
 import { videos } from '@/config/media';
@@ -27,7 +28,7 @@ function Layer({
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] });
   const inset = useTransform(scrollYProgress, [0, 1], ['inset(0% 2% 0% 2% round 1rem)', 'inset(0% 0% 0% 0% round 0rem)']);
   return (

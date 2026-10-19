@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/lib/hooks';
 import { anchors, pages, site } from '@/config/site';
 import { Button } from '@/components/ui/Button';
 import { Media } from '@/components/ui/Media';
@@ -28,7 +29,7 @@ export function Header() {
   const [active, setActive] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const lastY = useRef(0);
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   // Hide on scroll down, reveal on scroll up; light text while over the hero video.
   useEffect(() => {

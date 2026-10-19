@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion, type HTMLMotionProps } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/lib/hooks';
 import type { ElementType, ReactNode } from 'react';
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -20,7 +21,7 @@ export function Reveal({
   as?: 'div' | 'p' | 'span' | 'li' | 'h2' | 'h3' | 'section' | 'article';
   amount?: number;
 } & Omit<HTMLMotionProps<'div'>, 'children'>) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const M = motion[as] as typeof motion.div;
   if (reduce) {
     const Tag = as as ElementType;
@@ -56,7 +57,7 @@ export function SplitWords({
   stagger?: number;
   delay?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const Tag = as as ElementType;
   if (reduce) return <Tag id={id} className={className}>{text}</Tag>;
   const words = text.split(' ');

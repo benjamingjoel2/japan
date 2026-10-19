@@ -68,7 +68,7 @@ export function VideoPlayer({
         </div>
       )}
       {!url && label && (
-        <span className="pointer-events-none absolute right-[var(--gutter)] bottom-3 z-[1] max-w-[60%] text-right text-[10px] tracking-wide text-white/60 uppercase">
+        <span className="pointer-events-none absolute right-[var(--gutter)] bottom-3 z-[1] hidden max-w-[60%] text-right md:block text-[10px] tracking-wide text-white/60 uppercase">
           Video placeholder · {media.subject}
         </span>
       )}

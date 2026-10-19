@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/lib/hooks';
 import { useRef } from 'react';
 import { portraitQuote } from '@/data/quote';
 import { Media } from '@/components/ui/Media';
@@ -17,7 +18,7 @@ function Word({ w, i, n, p }: { w: string; i: number; n: number; p: MotionValue<
 /** Full-bleed portrait; the quote comes into focus word by word as you scroll. */
 export function PortraitQuote() {
   const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.75', 'center center'] });
   const words = portraitQuote.quote.split(' ');
   const q = portraitQuote;

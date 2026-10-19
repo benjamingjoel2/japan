@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/lib/hooks';
 import { useRef } from 'react';
 import { videos } from '@/config/media';
 import { Media } from '@/components/ui/Media';
@@ -33,7 +34,7 @@ const cards = [
  */
 export function JourneysVideo() {
   const track = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({ target: track, offset: ['start start', 'end end'] });
   const scale = useTransform(scrollYProgress, [0, 0.7], [0.42, 1]);
   const radius = useTransform(scrollYProgress, [0, 0.7], [8, 0]);
