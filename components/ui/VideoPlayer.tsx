@@ -54,7 +54,7 @@ export function VideoPlayer({
           loop
           playsInline
           preload="metadata"
-          poster={photoFor(media.subject) ? `${photoFor(media.subject)!.src}?w=1600&q=70&auto=format&fit=crop` : undefined}
+          poster={photoFor(media.subject) ? photoFor(media.subject)!.src.replace('w=2400', 'w=1600') : undefined}
           aria-label={media.alt ?? media.subject}
         >
           <source src={url} type="video/mp4" />

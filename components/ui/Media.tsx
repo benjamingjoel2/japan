@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { Media as MediaT } from '@/data/types';
 import { palettes, seedOf } from '@/lib/placeholder';
-import { photoFor, unsplashLoader } from '@/lib/unsplash';
+import { photoFor } from '@/lib/unsplash';
 
 export function placeholderUrl(media: Pick<MediaT, 'tone' | 'subject'>) {
   return `/ph/${media.tone}/${seedOf(media.subject)}.svg`;
@@ -53,7 +53,6 @@ export function Media({ media, sizes = '100vw', priority, className = '', label 
   if (photo) {
     return (
       <Image
-        loader={unsplashLoader}
         src={photo.src}
         alt={photo.alt}
         fill
