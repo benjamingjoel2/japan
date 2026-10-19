@@ -80,11 +80,11 @@
   --text-lead: 26px;
   --text-h2: 54px;
   --text-h3: 26px;
-  --text-hero: 23vw;
+  --text-hero: 19vw;
   --text-giant: 15vw;
 }
 @media (min-width: 768px) {
-  :root { --text-lead: 3.7vw; --text-h2: 9vw; --text-h3: 4vw; --text-hero: 22vw; }
+  :root { --text-lead: 3.7vw; --text-h2: 9vw; --text-h3: 4vw; --text-hero: 17.5vw; }
 }
 @media (min-width: 992px) {
   :root {
@@ -154,3 +154,17 @@
 .prose-k a { text-decoration: underline; text-underline-offset: 3px; }
 .prose-k strong { color: var(--color-sumi); font-weight: 600; }
 .prose-k blockquote { border-left: 2px solid var(--color-moss-light); padding-left: 1em; font-style: italic; }
+
+@keyframes drift {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to { transform: scale(1.08) translate3d(-1.5%, -1%, 0); }
+}
+
+@keyframes dialog-in {
+  from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+:root { --stack-top: 212px; }
+@media (min-width: 768px) { :root { --stack-top: 180px; } }
+@media (min-width: 992px) { :root { --stack-top: 14vw; } }

@@ -29,11 +29,12 @@ function seeded(str: string) {
     h ^= h << 13;
     h ^= h >>> 17;
     h ^= h << 5;
-    return ((h >>> 0) % 10000) / 10000;
+    return ((h >>> 0) % 1000) / 1000;
   };
 }
 
-function Motif({ tone, rand, id }: { tone: Tone; rand: () => number; id: string }) {
+// Called as a function (not a component) so the seeded sequence is consumed exactly once per render.
+function motif(tone: Tone, rand: () => number, id: string) {
   const p = palettes[tone];
   switch (tone) {
     case 'leaf':
@@ -163,7 +164,7 @@ export function Placeholder({ media, label = true }: { media: MediaT; label?: bo
           </filter>
         </defs>
         <rect width="400" height="300" fill={`url(#g-${id})`} />
-        <Motif tone={media.tone} rand={rand} id={id} />
+        {motif(media.tone, rand, id)}
         <rect width="400" height="300" filter={`url(#grain-${id})`} />
       </svg>
       {label && (

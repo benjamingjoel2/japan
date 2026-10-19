@@ -47,7 +47,9 @@ export function SplitWords({
   as = 'h2',
   stagger = 0.06,
   delay = 0,
+  id,
 }: {
+  id?: string;
   text: string;
   className?: string;
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'div';
@@ -56,24 +58,32 @@ export function SplitWords({
 }) {
   const reduce = useReducedMotion();
   const Tag = as as ElementType;
-  if (reduce) return <Tag className={className}>{text}</Tag>;
+  if (reduce) return <Tag id={id} className={className}>{text}</Tag>;
   const words = text.split(' ');
+  const M = motion[as] as typeof motion.h2;
+  // The trigger sits on the heading: the word spans start clipped by their masks, so they
+  // never intersect the viewport themselves.
   return (
-    <Tag className={className} aria-label={text}>
+    <M
+      id={id}
+      className={className}
+      aria-label={text}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ staggerChildren: stagger, delayChildren: delay }}
+    >
       {words.map((w, i) => (
-        <span key={i} aria-hidden="true" className="inline-block overflow-hidden pb-[0.12em] align-top -mb-[0.12em]">
+        <span key={i} aria-hidden="true" className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-top">
           <motion.span
             className="inline-block"
-            initial={{ y: '105%' }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 1, ease, delay: delay + i * stagger }}
+            variants={{ hidden: { y: '105%' }, show: { y: 0, transition: { duration: 1, ease } } }}
           >
             {w}
-            {i < words.length - 1 ? ' ' : ''}
+            {i < words.length - 1 ? '\u00a0' : ''}
           </motion.span>
         </span>
       ))}
-    </Tag>
+    </M>
   );
 }

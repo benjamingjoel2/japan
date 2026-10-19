@@ -146,7 +146,7 @@ export const journeys: Journey[] = [
         title: 'Magome to Tsumago',
         place: 'Kiso Valley',
         morning: 'Start at Magome by 8:30 and climb the stone paving out of town, past waterwheels and persimmon trees.',
-        afternoon: 'The pass, a tea house where an old man pours tea for walkers for nothing, then down through forest to Tsumago.',
+        afternoon: 'The pass, a free rest house where the caretaker pours green tea for walkers, then down through forest to Tsumago.',
         evening: 'Back at the inn, your bag is waiting in your room. The bath is cypress and the water is very hot.',
         stay: 'hinoki-juku',
       },
