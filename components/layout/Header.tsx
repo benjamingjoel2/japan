@@ -12,7 +12,7 @@ import { lockScroll } from './SmoothScroll';
 function Logo({ light }: { light: boolean }) {
   return (
     <span className={`flex items-baseline gap-2 ${light ? 'text-washi' : 'text-sumi'}`}>
-      <span className="font-display text-[22px] leading-none tracking-tight lg:text-[26px]">Komorebi</span>
+      <span className="font-display text-[26px] leading-none lg:text-[30px]">Komorebi</span>
       <span lang="ja" className="font-jp text-[11px] opacity-70 lg:text-xs">
         {site.ja}
       </span>

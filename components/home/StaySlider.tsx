@@ -7,18 +7,10 @@ import { Media } from '@/components/ui/Media';
 import { Button } from '@/components/ui/Button';
 import { SpecTable } from '@/components/ui/SpecTable';
 import { PlaceholderTag } from '@/components/ui/Tags';
+import { staySpecRows } from '@/components/cards/Cards';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function staySpecs(s: (typeof stays)[number]) {
-  return [
-    { label: 'Type', value: s.type },
-    { label: 'Bath', value: s.bath },
-    { label: 'Sleeping', value: s.sleeping },
-    { label: 'Size', value: `${s.sizeM2} m²` },
-    { label: 'Guests', value: s.guests },
-  ];
-}
 
 function Arrow({ dir }: { dir: 'prev' | 'next' }) {
   return (
@@ -88,7 +80,7 @@ export function StaySlider() {
             <div>
               <Button href={`/stays/${s.slug}`}>See this stay</Button>
             </div>
-            <SpecTable rows={staySpecs(s)} className="mt-auto border-t border-line pt-3" />
+            <SpecTable rows={staySpecRows(s)} className="mt-auto border-t border-line pt-3" />
           </div>
           <div className="relative hidden aspect-[3/4] self-start overflow-hidden rounded-media md:block">
             <Media media={s.images[1]} sizes="20vw" />

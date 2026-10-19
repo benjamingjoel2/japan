@@ -70,7 +70,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 lg:mt-[8vw]">
-          <p aria-hidden="true" className="font-display text-[17.5vw] leading-[0.8] tracking-[-0.03em] uppercase">
+          <p aria-hidden="true" className="font-display text-[23.5vw] leading-[0.8] tracking-[-0.03em] uppercase">
             Komorebi
           </p>
           <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-label text-washi/70">

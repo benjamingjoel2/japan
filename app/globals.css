@@ -14,7 +14,7 @@
   --color-blossom: #c85f86;
   --color-koyo: #a0661a;
 
-  --font-display: var(--font-fraunces), 'Iowan Old Style', Georgia, serif;
+  --font-display: var(--font-display-face), 'Iowan Old Style', Georgia, serif;
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-jp: var(--font-noto-jp), 'Hiragino Mincho ProN', serif;
 
@@ -82,11 +82,11 @@
   --text-lead: 26px;
   --text-h2: 54px;
   --text-h3: 26px;
-  --text-hero: 19vw;
+  --text-hero: 23vw;
   --text-giant: 15vw;
 }
 @media (min-width: 768px) {
-  :root { --text-lead: 3.7vw; --text-h2: 9vw; --text-h3: 4vw; --text-hero: 17.5vw; }
+  :root { --text-lead: 3.7vw; --text-h2: 9vw; --text-h3: 4vw; --text-hero: 21vw; }
 }
 @media (min-width: 992px) {
   :root {
@@ -95,7 +95,7 @@
     --text-lead: calc(1.125vw + 1.125rem);
     --text-h2: 6vw;
     --text-h3: calc(0.7vw + 1.2rem);
-    --text-hero: 15vw;
+    --text-hero: 19.5vw;
   }
 }
 

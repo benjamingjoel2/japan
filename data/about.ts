@@ -11,7 +11,7 @@ export const about: {
   story: [
     'Komorebi began with a morning in Kyoto. One of us, after years of living in Japan, watched a tour group sweep through a temple garden in eleven minutes, while an old gardener raked the gravel behind them as if they had never been there. Japan rewards the people who stay for the raking.',
     'So we built a different kind of trip. Fewer places, longer stays. Early starts when the light is good and the paths are empty, long afternoons with nothing on the schedule. Nights in inns where the owner remembers your name, and dinners that follow whatever the hills and the sea are offering that week.',
-    'Today we are a handful of specialists and local guides, in Japan and abroad. We still walk every route we sell, and we still plan each journey from a blank page, around the season you are travelling in and the kind of quiet you are looking for.',
+    'Today we are a handful of specialists and local guides, in Japan and abroad. We walk the routes ourselves before we send anyone, and we still plan each journey from a blank page, around the season you are travelling in and the kind of quiet you are looking for.',
   ],
   principles: [
     {
