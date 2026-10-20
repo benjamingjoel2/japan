@@ -4,8 +4,7 @@ import { anchors, legalLinks, pages, site } from '@/config/site';
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    // Reveal footer: the page content lifts off it (sticky bottom, under the main column).
-    <footer id="footer" className="relative bg-night text-washi lg:sticky lg:bottom-0 lg:-z-10">
+    <footer id="footer" className="relative overflow-clip bg-night text-washi">
       <div className="px-gutter pt-16 pb-6 lg:pt-[6vw]">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_1.4fr_1fr] md:gap-grid">
           <address className="flex flex-col gap-1 text-label not-italic text-washi/80">
@@ -70,10 +69,11 @@ export function Footer() {
         </div>
 
         <div className="mt-16 lg:mt-[8vw]">
-          <p aria-hidden="true" className="font-display text-[23.5vw] leading-[0.8] tracking-[-0.03em] uppercase">
+          <p aria-hidden="true" className="font-display text-[26vw] leading-[0.8] lg:text-[26.8vw] tracking-[-0.03em] uppercase">
             Komorebi
           </p>
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-label text-washi/70">
+          {/* Left padding keeps the line clear of the fixed back-to-top button. */}
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pl-12 text-label text-washi/70 lg:pl-16">
             <span>© {year} {site.name}. All rights reserved.</span>
             <span lang="ja" className="font-jp">
               {site.ja} · {site.tagline}
