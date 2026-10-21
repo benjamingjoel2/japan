@@ -40,7 +40,7 @@ export default function DestinationsPage() {
         <ul className="grid grid-cols-2 gap-x-[var(--gap)] gap-y-10 md:grid-cols-3">
           {destinations.map((d, i) => (
             <Reveal as="li" key={d.slug} delay={(i % 3) * 0.06}>
-              <DestinationCard d={d} />
+              <DestinationCard d={d} priority={i === 0} />
             </Reveal>
           ))}
         </ul>

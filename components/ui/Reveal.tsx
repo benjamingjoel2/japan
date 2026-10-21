@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import { m, type HTMLMotionProps } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import type { ElementType, ReactNode } from 'react';
 
@@ -22,7 +22,7 @@ export function Reveal({
   amount?: number;
 } & Omit<HTMLMotionProps<'div'>, 'children'>) {
   const reduce = usePrefersReducedMotion();
-  const M = motion[as] as typeof motion.div;
+  const M = m[as] as typeof m.div;
   if (reduce) {
     const Tag = as as ElementType;
     return <Tag className={className}>{children}</Tag>;
@@ -61,7 +61,7 @@ export function SplitWords({
   const Tag = as as ElementType;
   if (reduce) return <Tag id={id} className={className}>{text}</Tag>;
   const words = text.split(' ');
-  const M = motion[as] as typeof motion.h2;
+  const M = m[as] as typeof m.h2;
   // The trigger sits on the heading: the word spans start clipped by their masks, so they
   // never intersect the viewport themselves.
   return (
@@ -76,13 +76,13 @@ export function SplitWords({
     >
       {words.map((w, i) => (
         <span key={i} aria-hidden="true" className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-top">
-          <motion.span
+          <m.span
             className="inline-block"
             variants={{ hidden: { y: '105%' }, show: { y: 0, transition: { duration: 1, ease } } }}
           >
             {w}
             {i < words.length - 1 ? '\u00a0' : ''}
-          </motion.span>
+          </m.span>
         </span>
       ))}
     </M>

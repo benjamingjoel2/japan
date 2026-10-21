@@ -36,13 +36,15 @@ type Props = {
   priority?: boolean;
   className?: string;
   label?: boolean;
+  /** Width / height of the box, when fixed. Lets the CDN crop to that shape (smaller files). */
+  ratio?: number;
 };
 
 /**
  * Fills its (relative) parent. Order of preference: the media's own `src` (your photography),
  * then the Unsplash photo mapped to its subject in /data/photos.ts, then generated placeholder art.
  */
-export function Media({ media, sizes = '100vw', priority, className = '', label }: Props) {
+export function Media({ media, sizes = '100vw', priority, className = '', label, ratio }: Props) {
   const tone = palettes[media.tone] ?? palettes.paper;
   if (media.src) {
     return (
@@ -53,7 +55,7 @@ export function Media({ media, sizes = '100vw', priority, className = '', label 
   if (photo) {
     return (
       <Image
-        src={photo.src}
+        src={ratio ? `${photo.src}?ar=${ratio.toFixed(3)}` : photo.src}
         alt={photo.alt}
         fill
         sizes={sizes}

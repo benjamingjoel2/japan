@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useMemo, useRef, useState, type ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { blossomRegions } from '@/data/blossom';
 import { budgets, contactMethods, interests, paces, stayStyles } from '@/lib/enquiry';
 import { dayOfYear, formatRange, MONTH_NAMES, seasonsInMonth } from '@/lib/seasons';
@@ -83,7 +83,7 @@ function MonthContext({ month }: { month: number }) {
   const blossom = blossomRegions.filter((r) => inWindow(month, r.blossom));
   const leaves = blossomRegions.filter((r) => r.id !== 'okinawa' && inWindow(month, r.leaves));
   return (
-    <motion.div
+    <m.div
       key={month}
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
@@ -120,7 +120,7 @@ function MonthContext({ month }: { month: number }) {
         </div>
         <p className="text-[12px] text-sumi-soft">Typical windows, not forecasts.</p>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -204,7 +204,7 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
     <div ref={topRef} className="scroll-mt-[calc(var(--header-h)+2rem)]">
       <AnimatePresence mode="wait">
         {status === 'done' ? (
-          <motion.div
+          <m.div
             key="done"
             role="status"
             initial={{ opacity: 0, filter: 'blur(6px)' }}
@@ -215,9 +215,9 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
             <p className="max-w-[40ch] text-body text-sumi-soft">
               A specialist will read your note properly and reply within two working days, usually sooner.
             </p>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.form key="form" onSubmit={submit} noValidate className="flex flex-col gap-12" exit={{ opacity: 0 }}>
+          <m.form key="form" onSubmit={submit} noValidate className="flex flex-col gap-12" exit={{ opacity: 0 }}>
             {/* Honeypot */}
             <div aria-hidden="true" className="absolute -left-[9999px]">
               <label>
@@ -361,7 +361,7 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
                 .
               </p>
             </div>
-          </motion.form>
+          </m.form>
         )}
       </AnimatePresence>
     </div>

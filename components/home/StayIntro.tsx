@@ -31,14 +31,14 @@ export function StayIntro() {
       </header>
       <div className="grid grid-cols-4 gap-grid">
         <Reveal className="relative col-span-2 aspect-[3/2] self-start overflow-hidden rounded-media md:col-span-1">
-          <Media media={{ subject: 'Machiya lattice at dusk, Kyoto', tone: 'lantern' }} sizes="25vw" />
+          <Media media={{ subject: 'Machiya lattice at dusk, Kyoto', tone: 'lantern' }} ratio={3 / 2} sizes="(min-width: 768px) 25vw, 50vw" />
         </Reveal>
         <Reveal
           delay={0.1}
           className="relative col-span-4 row-start-2 aspect-[4/5] md:col-span-2 md:col-start-2 md:row-start-1"
         >
           <div className="absolute inset-0 overflow-hidden rounded-media">
-            <Media media={{ subject: 'Tatami room opening onto a moss garden, sliding doors drawn back', tone: 'paper' }} sizes="50vw" />
+            <Media media={{ subject: 'Tatami room opening onto a moss garden, sliding doors drawn back', tone: 'paper' }} ratio={4 / 5} sizes="(min-width: 768px) 50vw, 100vw" />
           </div>
           <div className="absolute -bottom-8 left-1/2 size-16 -translate-x-1/2 md:size-[5.5vw]">
             <Seal />

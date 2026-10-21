@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { m, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { useRef } from 'react';
 import { portraitQuote } from '@/data/quote';
@@ -12,7 +12,7 @@ function Word({ w, i, n, p }: { w: string; i: number; n: number; p: MotionValue<
   const start = i / n;
   const opacity = useTransform(p, [start * 0.8, start * 0.8 + 0.12], [0.2, 1]);
   const filter = useTransform(p, [start * 0.8, start * 0.8 + 0.12], ['blur(4px)', 'blur(0px)']);
-  return <motion.span style={{ opacity, filter }}>{w} </motion.span>;
+  return <m.span style={{ opacity, filter }}>{w} </m.span>;
 }
 
 /** Full-bleed portrait; the quote comes into focus word by word as you scroll. */

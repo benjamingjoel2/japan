@@ -22,7 +22,7 @@ export default async function JournalPage() {
             <Link href={`/journal/${p.slug}`} className="group flex flex-col gap-3">
               <span className="relative block aspect-[3/2] overflow-hidden rounded-media">
                 <span className="absolute inset-0 transition-transform duration-[1.2s] ease-soft group-hover:scale-[1.04]">
-                  <Media media={{ subject: p.title, tone: p.tone }} sizes="(min-width: 768px) 50vw, 100vw" label={false} />
+                  <Media media={{ subject: p.title, tone: p.tone }} ratio={3 / 2} priority={i === 0} sizes="(min-width: 768px) 50vw, 100vw" label={false} />
                 </span>
               </span>
               <span className="flex gap-3 text-[13px] text-moss">

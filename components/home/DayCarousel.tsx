@@ -17,7 +17,7 @@ export function DayCarousel() {
             className="relative isolate flex h-[78svh] max-h-[640px] w-[80vw] shrink-0 snap-start flex-col justify-between overflow-hidden rounded-media p-4 pl-[var(--gutter)] text-washi first:ml-[var(--gutter)] mr-2.5 md:mr-4 md:h-[36vw] md:max-h-none md:w-[26vw] md:p-[1vw] md:first:ml-0 md:first:pl-[1vw]"
           >
             <div className="absolute inset-0 -z-10">
-              <Media media={d.image ?? { subject: d.place, tone: 'leaf' }} sizes="(min-width: 768px) 26vw, 80vw" label={false} />
+              <Media media={d.image ?? { subject: d.place, tone: 'leaf' }} ratio={0.72} sizes="(min-width: 768px) 26vw, 80vw" label={false} />
               <div className="absolute inset-0 bg-gradient-to-b from-sumi/60 via-sumi/25 to-sumi/80" />
             </div>
             <header className="flex items-start justify-between gap-3">

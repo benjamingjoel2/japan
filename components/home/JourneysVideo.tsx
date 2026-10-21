@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { useRef } from 'react';
 import { videos } from '@/config/media';
@@ -51,7 +51,7 @@ export function JourneysVideo() {
           >
             Journeys
           </h2>
-          <motion.div
+          <m.div
             className="relative h-svh w-full overflow-hidden"
             style={reduce ? undefined : { scale, borderRadius: radius, filter: blur }}
           >
@@ -64,13 +64,13 @@ export function JourneysVideo() {
               }}
               src={videos.journeys}
             />
-            <motion.p
+            <m.p
               style={reduce ? undefined : { opacity: subtitle }}
               className="absolute inset-x-0 bottom-[8vh] mx-auto max-w-[34ch] px-gutter text-center text-body text-washi"
             >
               Eight journeys to start from, each rewritten around your dates, your pace and the season you’ll arrive in.
-            </motion.p>
-          </motion.div>
+            </m.p>
+          </m.div>
         </div>
       </div>
 
@@ -87,7 +87,7 @@ export function JourneysVideo() {
             </div>
           ))}
           <Reveal className="relative mx-auto aspect-[4/5] w-full max-w-[28rem] overflow-hidden rounded-media md:order-2">
-            <Media media={{ subject: 'Guide and guest crossing a stone bridge, Nakasendō, autumn', tone: 'maple' }} sizes="35vw" />
+            <Media media={{ subject: 'Guide and guest crossing a stone bridge, Nakasendō, autumn', tone: 'maple' }} ratio={4 / 5} sizes="(min-width: 768px) 35vw, 100vw" />
           </Reveal>
         </div>
         <div className="mt-12 flex justify-center">

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { anchors, pages, site } from '@/config/site';
 import { Button } from '@/components/ui/Button';
@@ -133,7 +133,7 @@ export function Header() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
@@ -147,7 +147,7 @@ export function Header() {
             <nav aria-label="Sections">
               <ul className="flex flex-col gap-1">
                 {anchors.map((a, i) => (
-                  <motion.li
+                  <m.li
                     key={a.id}
                     initial={reduce ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -160,7 +160,7 @@ export function Header() {
                     >
                       {a.label}
                     </a>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
             </nav>
@@ -187,7 +187,7 @@ export function Header() {
                 <span className="absolute bottom-3 left-3 font-display text-xl text-washi">Komorebi</span>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

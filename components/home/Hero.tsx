@@ -18,12 +18,10 @@ export function Hero() {
             captions: '/captions/hero.vtt',
           }}
           src={videos.hero}
+          priority
+          drift
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-night/35 via-night/0 to-night/55" />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-[38%] [mask-image:linear-gradient(to_top,black_30%,transparent)] backdrop-blur-[6px]"
-        />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-night/40 via-night/0 to-night/70" />
 
         <div className="relative mt-auto px-gutter pb-[3vw] text-washi lg:pb-[1.2vw]">
           <div className="flex items-end justify-between gap-6">

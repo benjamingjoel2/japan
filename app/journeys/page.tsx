@@ -25,7 +25,7 @@ export default function JourneysPage() {
       <ul className="grid gap-x-[var(--gap)] gap-y-14 px-gutter pb-section md:grid-cols-2 lg:grid-cols-3">
         {journeys.map((j, i) => (
           <Reveal as="li" key={j.slug} delay={(i % 3) * 0.08}>
-            <JourneyCard j={j} />
+            <JourneyCard j={j} priority={i === 0} />
           </Reveal>
         ))}
       </ul>

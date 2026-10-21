@@ -8,7 +8,7 @@ import { photoFor } from '@/lib/unsplash';
 
 /**
  * Ambient, muted, looping video that fills its (relative) parent.
- * - Without a `src` it renders the generated placeholder poster (with a slow drift).
+ * - Without a `src` it shows the poster photo (optionally with a slow drift).
  * - Plays only while on screen; never autoplays under reduced motion.
  * - Muted ambient footage with no dialogue; captions track carries a description.
  */
@@ -17,13 +17,16 @@ export function VideoPlayer({
   src,
   className = '',
   label = true,
-  drift = true,
+  drift = false,
+  priority = false,
 }: {
   media: VideoMedia;
   src?: string;
   className?: string;
   label?: boolean;
   drift?: boolean;
+  /** Load the poster eagerly (only for the first screen). */
+  priority?: boolean;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
@@ -54,7 +57,7 @@ export function VideoPlayer({
           loop
           playsInline
           preload="metadata"
-          poster={photoFor(media.subject) ? photoFor(media.subject)!.src.replace('w=2400', 'w=1600') : undefined}
+          poster={photoFor(media.subject) ? `${photoFor(media.subject)!.src}?w=1600&q=70&auto=format&fit=max` : undefined}
           aria-label={media.alt ?? media.subject}
         >
           <source src={url} type="video/mp4" />
@@ -66,7 +69,7 @@ export function VideoPlayer({
           aria-label={media.alt ?? media.subject}
           className={`absolute -inset-[4%] ${drift && !reduce ? 'animate-[drift_24s_ease-in-out_infinite_alternate]' : ''}`}
         >
-          <Media media={media} label={false} priority sizes="100vw" />
+          <Media media={media} label={false} priority={priority} sizes="100vw" />
         </div>
       )}
       {!url && label && !photoFor(media.subject) && !media.src && (

@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useState } from 'react';
 import { stays } from '@/data/stays';
 import { Media } from '@/components/ui/Media';
@@ -56,7 +56,7 @@ export function StaySlider() {
       </div>
 
       <AnimatePresence mode="wait" initial={false}>
-        <motion.div
+        <m.div
           key={s.slug}
           role="group"
           aria-roledescription="slide"
@@ -83,9 +83,9 @@ export function StaySlider() {
             <SpecTable rows={staySpecRows(s)} className="mt-auto border-t border-line pt-3" />
           </div>
           <div className="relative hidden aspect-[3/4] self-start overflow-hidden rounded-media md:block">
-            <Media media={s.images[1]} sizes="20vw" />
+            <Media media={s.images[1]} ratio={3 / 4} sizes="20vw" />
           </div>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       <div className="mt-6 flex justify-center gap-0.5" role="group" aria-label="Choose a stay">

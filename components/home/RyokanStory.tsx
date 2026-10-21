@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { useRef } from 'react';
 import { ryokanNight } from '@/data/ryokan-night';
@@ -37,14 +37,14 @@ function Layer({
       className={`relative ${last ? 'h-svh' : 'h-[200svh]'} ${index ? '-mt-[100svh]' : ''}`}
       style={{ zIndex: index + 1 }}
     >
-      <motion.div
+      <m.div
         className="sticky top-0 h-svh overflow-hidden bg-night"
         style={reduce || index === 0 ? undefined : { clipPath: inset }}
       >
         <VideoPlayer media={media} src={src} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night/85 via-night/25 to-night/10" />
         <div className="absolute inset-x-0 bottom-0 px-gutter pb-[8vh] text-washi lg:pb-[6vw]">{children}</div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

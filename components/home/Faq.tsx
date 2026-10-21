@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useId, useState } from 'react';
 import { faq } from '@/data/faq';
 import { Media } from '@/components/ui/Media';
@@ -48,7 +48,7 @@ export function Faq() {
                 </h3>
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       id={id}
                       role="region"
                       aria-label={item.q}
@@ -61,10 +61,10 @@ export function Faq() {
                       <div className="grid gap-4 pt-1 pb-6 md:grid-cols-[1fr_1.2fr] md:gap-grid">
                         <div className="grid grid-cols-[1.6fr_1fr] items-end gap-2.5">
                           <div className="relative aspect-[4/5] overflow-hidden rounded-media">
-                            <Media media={item.images[0]} sizes="20vw" label={false} />
+                            <Media media={item.images[0]} ratio={4 / 5} sizes="(min-width: 768px) 20vw, 60vw" label={false} />
                           </div>
                           <div className="relative aspect-[3/4] overflow-hidden rounded-media">
-                            <Media media={item.images[1]} sizes="12vw" label={false} />
+                            <Media media={item.images[1]} ratio={3 / 4} sizes="(min-width: 768px) 12vw, 40vw" label={false} />
                           </div>
                         </div>
                         <div className="flex flex-col gap-3">
@@ -80,7 +80,7 @@ export function Faq() {
                           )}
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </li>

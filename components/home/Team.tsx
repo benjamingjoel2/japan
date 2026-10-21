@@ -37,7 +37,7 @@ export function Team() {
                   <span className="mb-1.5 block font-display text-[20px] text-moss lg:text-[1.4vw]">{p.name}</span>
                   <span className="relative block aspect-[3/4] overflow-hidden rounded-media">
                     <span className="absolute inset-0 transition-transform duration-700 ease-soft group-hover:scale-[1.04]">
-                      <Media media={p.image} sizes="(min-width: 992px) 18vw, 45vw" label={false} />
+                      <Media media={p.image} ratio={3 / 4} sizes="(min-width: 992px) 18vw, 45vw" label={false} />
                     </span>
                     <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-sumi/60 to-transparent" />
                     <span className="absolute bottom-2 left-2.5 text-[13px] text-washi lg:text-[0.9vw]">{p.role}</span>
@@ -60,7 +60,7 @@ export function Team() {
         {m && (
           <div className="grid gap-6 p-4 md:grid-cols-[0.8fr_1.2fr] md:p-6">
             <div className="relative aspect-[3/4] overflow-hidden rounded-media">
-              <Media media={m.image} sizes="40vw" />
+              <Media media={m.image} ratio={3 / 4} sizes="(min-width: 768px) 40vw, 100vw" />
             </div>
             <div className="flex flex-col gap-4 md:pr-10">
               <div>
