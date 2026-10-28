@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { enquirySchema } from '@/lib/enquiry';
+import { site } from '@/config/site';
 
 export async function POST(req: Request) {
   let body: unknown;
@@ -19,9 +20,9 @@ export async function POST(req: Request) {
   void _hp;
   const enquiry = { ...data, receivedAt: new Date().toISOString() };
 
-  // TODO: CRM integration. Send `enquiry` to the CRM (e.g. HubSpot / Pipedrive / Airtable) and
-  // notify the specialist on call. Until then the payload is only logged.
-  console.log('[enquiry]', JSON.stringify(enquiry));
+  // TODO: deliver to site.company.email via an email service (e.g. Resend) or a CRM
+  // (e.g. HubSpot / Pipedrive / Airtable). Until then the payload is only logged.
+  console.log('[enquiry]', `to=${site.company.email}`, JSON.stringify(enquiry));
 
   return NextResponse.json({ ok: true });
 }

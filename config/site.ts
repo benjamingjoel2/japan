@@ -1,7 +1,11 @@
 // Brand settings. Everything brand-specific that isn't content lives here.
 
+const BRAND = 'Komorebi';
+// Shared across all our brands: every brand's address is {brand}@tourground.com.
+const EMAIL_DOMAIN = 'tourground.com';
+
 export const site = {
-  name: 'Komorebi',
+  name: BRAND,
   ja: '木漏れ日',
   tagline: 'Japan, in its own time.',
   description:
@@ -22,7 +26,7 @@ export const site = {
   company: {
     legalName: 'Komorebi Journeys Ltd. (placeholder)',
     address: ['Placeholder address line 1', 'Placeholder city, postcode', 'Country'],
-    email: 'hello@komorebi.example',
+    email: `${BRAND.toLowerCase()}@${EMAIL_DOMAIN}`,
     phone: '+00 0000 000000',
     registration: 'Travel agency registration no. 0000 (placeholder)',
     partner: 'Licensed Japanese partner: Placeholder Travel K.K., Japan Tourism Agency registration no. 0000 (placeholder)',
