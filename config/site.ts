@@ -23,7 +23,9 @@ export const site = {
   // PLACEHOLDER company details — replace before launch.
   company: {
     legalName: 'Komorebi Journeys Ltd. (placeholder)',
-    address: ['Placeholder address line 1', 'Placeholder city, postcode', 'Country'],
+    // No street address shown for now. Add the lines here (e.g. a virtual-office address you hold)
+    // and they appear in the footer and on the Legal page.
+    address: [] as string[],
     email: `${SLUG}@${DOMAIN}`,
     phone: '+00 0000 000000',
     registration: 'Travel agency registration no. 0000 (placeholder)',
