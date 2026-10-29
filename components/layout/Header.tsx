@@ -33,14 +33,25 @@ export function Header() {
 
   // Hide on scroll down, reveal on scroll up; light text while over the hero video.
   useEffect(() => {
-    const onScroll = () => {
+    // At most once per frame; state only changes when the direction clearly changes.
+    let ticking = false;
+    const update = () => {
+      ticking = false;
       const y = window.scrollY;
+      const dy = y - lastY.current;
       setOverHero(isHome && y < window.innerHeight - 80);
-      setHidden(y > 200 && y > lastY.current + 4);
-      if (y < lastY.current - 4 || y < 200) setHidden(false);
-      lastY.current = y;
+      if (y < 200) setHidden(false);
+      else if (dy > 6) setHidden(true);
+      else if (dy < -6) setHidden(false);
+      if (Math.abs(dy) > 6 || y < 200) lastY.current = y;
     };
-    onScroll();
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [isHome]);

@@ -7,7 +7,8 @@ const nextConfig = {
     loader: 'custom',
     loaderFile: './lib/image-loader.ts',
     formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 828, 1080, 1280, 1600, 1920, 2560],
+    // Capped at 1920: beyond that, extra pixels cost bandwidth for no visible gain.
+    deviceSizes: [640, 828, 1080, 1280, 1600, 1920],
     remotePatterns: [{ protocol: 'https', hostname: 'images.unsplash.com' }],
   },
 }

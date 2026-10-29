@@ -35,7 +35,6 @@ export function Dialog({
       onClose={onClose}
       onCancel={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
-      data-lenis-prevent
       className={`m-auto max-h-[92svh] w-[min(100%-20px,1100px)] overflow-y-auto rounded-card bg-washi p-0 text-sumi backdrop:bg-sumi/60 backdrop:backdrop-blur-sm open:animate-[dialog-in_.5s_cubic-bezier(.22,1,.36,1)] ${className}`}
     >
       <button

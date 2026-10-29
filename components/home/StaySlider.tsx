@@ -61,9 +61,9 @@ export function StaySlider() {
           role="group"
           aria-roledescription="slide"
           aria-label={`${i + 1} of ${stays.length}: ${s.name}`}
-          initial={{ opacity: 0, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, filter: 'blur(6px)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease }}
           className="grid grid-cols-1 gap-grid md:grid-cols-[1.25fr_1fr_0.6fr]"
         >

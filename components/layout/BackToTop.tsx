@@ -11,8 +11,7 @@ export function BackToTop() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   const toTop = () => {
-    if (window.__lenis) window.__lenis.scrollTo(0);
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('main')?.focus({ preventScroll: true });
   };
   return (

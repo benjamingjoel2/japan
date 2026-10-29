@@ -35,16 +35,28 @@ export function Marquee({
     if (!auto) return;
     const el = track.current!;
     let raf = 0;
+    // Measure once (and on resize), never inside the frame loop: reading layout every frame is costly.
+    let half = el.scrollWidth / 2;
+    const ro = new ResizeObserver(() => (half = el.scrollWidth / 2));
+    ro.observe(el);
     const loop = () => {
-      const half = el.scrollWidth / 2;
       if (!paused && !hover.current && !drag.current) x.current -= speed;
       if (x.current <= -half) x.current += half;
       if (x.current > 0) x.current -= half;
       el.style.transform = `translate3d(${x.current}px,0,0)`;
       raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    // Only animate while the carousel is on screen.
+    const io = new IntersectionObserver(([e]) => {
+      cancelAnimationFrame(raf);
+      if (e.isIntersecting) raf = requestAnimationFrame(loop);
+    });
+    io.observe(el);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      ro.disconnect();
+    };
   }, [auto, paused, speed]);
 
   const onDown = (e: React.PointerEvent) => {

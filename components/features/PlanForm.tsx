@@ -207,8 +207,8 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
           <m.div
             key="done"
             role="status"
-            initial={{ opacity: 0, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             className="flex min-h-[50vh] flex-col items-start justify-center gap-4 py-16"
           >
             <p className="text-h2">Thank you. We&rsquo;ll write soon.</p>

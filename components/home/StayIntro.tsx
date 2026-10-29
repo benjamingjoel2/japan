@@ -3,7 +3,7 @@ import { Reveal, SplitWords } from '@/components/ui/Reveal';
 
 function Seal() {
   return (
-    <svg viewBox="0 0 120 120" className="spin-slow size-full" aria-hidden="true">
+    <svg viewBox="0 0 120 120" className="size-full" aria-hidden="true">
       <defs>
         <path id="seal-circle" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0" />
       </defs>
@@ -41,6 +41,7 @@ export function StayIntro() {
             <Media media={{ subject: 'Tatami room opening onto a moss garden, sliding doors drawn back', tone: 'paper' }} ratio={4 / 5} sizes="(min-width: 768px) 50vw, 100vw" />
           </div>
           <div className="absolute -bottom-8 left-1/2 size-16 -translate-x-1/2 md:size-[5.5vw]">
+            {/* Static on purpose: a continuously rotating seal cost noticeable scroll smoothness on phones. */}
             <Seal />
           </div>
         </Reveal>

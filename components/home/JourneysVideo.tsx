@@ -30,15 +30,13 @@ const cards = [
 
 /**
  * A giant word sits behind; the video grows from a small frame to full-bleed as you scroll
- * and its blur lifts. Followed by four short cards around a portrait.
+ * (transform only, so it stays smooth). Followed by four short cards around a portrait.
  */
 export function JourneysVideo() {
   const track = useRef<HTMLDivElement>(null);
   const reduce = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({ target: track, offset: ['start start', 'end end'] });
   const scale = useTransform(scrollYProgress, [0, 0.7], [0.42, 1]);
-  const radius = useTransform(scrollYProgress, [0, 0.7], [8, 0]);
-  const blur = useTransform(scrollYProgress, [0, 0.5], ['blur(5px)', 'blur(0px)']);
   const subtitle = useTransform(scrollYProgress, [0.75, 0.95], [0, 1]);
 
   return (
@@ -53,7 +51,7 @@ export function JourneysVideo() {
           </h2>
           <m.div
             className="relative h-svh w-full overflow-hidden"
-            style={reduce ? undefined : { scale, borderRadius: radius, filter: blur }}
+            style={reduce ? undefined : { scale }}
           >
             <VideoPlayer
               media={{

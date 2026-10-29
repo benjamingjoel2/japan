@@ -4,8 +4,6 @@ import { site } from '@/config/site';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BackToTop } from '@/components/layout/BackToTop';
-import { SmoothScroll } from '@/components/layout/SmoothScroll';
-import { Cursor } from '@/components/layout/Cursor';
 import { Providers } from '@/components/layout/Providers';
 import './globals.css';
 
@@ -49,14 +47,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Providers>
-            <SmoothScroll />
             <Header />
             <main id="main" tabIndex={-1} className="relative z-10 bg-washi outline-none">
               {children}
             </main>
             <Footer />
             <BackToTop />
-            <Cursor />
           </Providers>
       </body>
     </html>

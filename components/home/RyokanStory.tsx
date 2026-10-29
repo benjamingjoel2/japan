@@ -11,8 +11,8 @@ import { Button } from '@/components/ui/Button';
 
 /**
  * One full-screen layer. Each layer is 200vh with a sticky 100vh card; layers overlap by
- * 100vh so the next card slides up over the pinned one. The card is inset and rounded as it
- * travels, and settles full-bleed with square corners when it fills the screen.
+ * 100vh so the next card slides up over the pinned one. The card is slightly narrower as it
+ * travels, and settles full width when it fills the screen.
  */
 function Layer({
   media,
@@ -30,7 +30,8 @@ function Layer({
   const ref = useRef<HTMLDivElement>(null);
   const reduce = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] });
-  const inset = useTransform(scrollYProgress, [0, 1], ['inset(0% 2% 0% 2% round 1rem)', 'inset(0% 0% 0% 0% round 0rem)']);
+  // Transform only (no clip-path), so the browser can animate it on the GPU.
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
   return (
     <div
       ref={ref}
@@ -39,7 +40,7 @@ function Layer({
     >
       <m.div
         className="sticky top-0 h-svh overflow-hidden bg-night"
-        style={reduce || index === 0 ? undefined : { clipPath: inset }}
+        style={reduce || index === 0 ? undefined : { scaleX }}
       >
         <VideoPlayer media={media} src={src} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night/85 via-night/25 to-night/10" />

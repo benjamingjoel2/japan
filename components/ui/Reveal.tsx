@@ -6,7 +6,7 @@ import type { ElementType, ReactNode } from 'react';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-/** Blur-rise on entering the viewport: opacity 0, blur 5px, 1rem down → settled. */
+/** Rise on entering the viewport: opacity 0, 1rem down → settled. Transform/opacity only (GPU-cheap). */
 export function Reveal({
   children,
   delay = 0,
@@ -30,8 +30,8 @@ export function Reveal({
   return (
     <M
       className={className}
-      initial={{ opacity: 0, y: '1rem', filter: 'blur(5px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={{ opacity: 0, y: '1rem' }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount }}
       transition={{ duration: 1, ease, delay }}
       {...rest}

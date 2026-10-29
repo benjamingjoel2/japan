@@ -11,11 +11,10 @@ import { PlaceholderTag } from '@/components/ui/Tags';
 function Word({ w, i, n, p }: { w: string; i: number; n: number; p: MotionValue<number> }) {
   const start = i / n;
   const opacity = useTransform(p, [start * 0.8, start * 0.8 + 0.12], [0.2, 1]);
-  const filter = useTransform(p, [start * 0.8, start * 0.8 + 0.12], ['blur(4px)', 'blur(0px)']);
-  return <m.span style={{ opacity, filter }}>{w} </m.span>;
+  return <m.span style={{ opacity }}>{w} </m.span>;
 }
 
-/** Full-bleed portrait; the quote comes into focus word by word as you scroll. */
+/** Full-bleed portrait; the quote brightens word by word as you scroll. */
 export function PortraitQuote() {
   const ref = useRef<HTMLElement>(null);
   const reduce = usePrefersReducedMotion();
