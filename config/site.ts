@@ -1,8 +1,10 @@
 // Brand settings. Everything brand-specific that isn't content lives here.
 
 const BRAND = 'Komorebi';
-// Shared across all our brands: every brand's address is {brand}@tourground.com.
-const EMAIL_DOMAIN = 'tourground.com';
+// Shared across all our brands: each brand lives at {brand}.tourground.com and its
+// email is {brand}@tourground.com.
+const DOMAIN = 'tourground.com';
+const SLUG = BRAND.toLowerCase();
 
 export const site = {
   name: BRAND,
@@ -10,12 +12,8 @@ export const site = {
   tagline: 'Japan, in its own time.',
   description:
     'Private, slow journeys in Japan, planned around the seasons and away from the crowds. Ryokan nights, quiet temples at opening time, craft, food and the 72 seasons.',
-  // Set NEXT_PUBLIC_SITE_URL once the real domain exists; on Vercel the production domain is used meanwhile.
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : 'http://localhost:3000'),
+  // Canonical address. NEXT_PUBLIC_SITE_URL overrides it (e.g. for a staging copy).
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? `https://${SLUG}.${DOMAIN}`,
   locale: 'en_GB',
   heroTags: [
     ['Private journeys', 'Seasonal'],
@@ -26,7 +24,7 @@ export const site = {
   company: {
     legalName: 'Komorebi Journeys Ltd. (placeholder)',
     address: ['Placeholder address line 1', 'Placeholder city, postcode', 'Country'],
-    email: `${BRAND.toLowerCase()}@${EMAIL_DOMAIN}`,
+    email: `${SLUG}@${DOMAIN}`,
     phone: '+00 0000 000000',
     registration: 'Travel agency registration no. 0000 (placeholder)',
     partner: 'Licensed Japanese partner: Placeholder Travel K.K., Japan Tourism Agency registration no. 0000 (placeholder)',
