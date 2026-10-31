@@ -1,3 +1,4 @@
+import { t } from '@/lib/i18n/server';
 import { site } from '@/config/site';
 import { videos } from '@/config/media';
 import { VideoPlayer } from '@/components/ui/VideoPlayer';
@@ -14,7 +15,7 @@ export function Hero() {
           media={{
             subject: 'Light through maple leaves, Kyoto, 7am',
             tone: 'leaf',
-            alt: 'Morning light filtering through maple leaves',
+            alt: t('Morning light filtering through maple leaves'),
             captions: '/captions/hero.vtt',
           }}
           src={videos.hero}
@@ -31,14 +32,14 @@ export function Hero() {
                 className={`rise-in flex flex-wrap gap-x-3 text-body ${i ? 'justify-end text-right' : ''}`}
                 style={{ ['--d' as string]: `${0.9 + i * 0.1}s` }}
               >
-                {pair.map((t) => (
-                  <span key={t}>{t}</span>
+                {pair.map((w) => (
+                  <span key={w}>{t(w)}</span>
                 ))}
               </p>
             ))}
           </div>
           <h1 className="mt-2 flex justify-between font-display text-hero uppercase lg:mt-0">
-            <span className="sr-only">Komorebi. {site.tagline}</span>
+            <span className="sr-only">Komorebi. {t(site.tagline)}</span>
             {['Komo', 'rebi'].map((w, i) => (
               <span key={w} aria-hidden="true" className="block overflow-hidden pb-[0.04em]">
                 <span className="word-up block" style={{ ['--d' as string]: `${0.25 + i * 0.12}s` }}>

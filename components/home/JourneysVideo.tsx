@@ -8,23 +8,25 @@ import { Media } from '@/components/ui/Media';
 import { VideoPlayer } from '@/components/ui/VideoPlayer';
 import { Reveal } from '@/components/ui/Reveal';
 import { Button } from '@/components/ui/Button';
+import { useT } from '@/components/i18n/I18nProvider';
+import { msg } from '@/lib/i18n/config';
 
 const cards = [
   {
-    title: 'Four places, properly',
-    body: 'We don’t do Japan in ten cities. Three nights in one place is when the neighbourhood starts nodding back.',
+    title: msg('Four places, properly'),
+    body: msg('We don’t do Japan in ten cities. Three nights in one place is when the neighbourhood starts nodding back.'),
   },
   {
-    title: 'Built around the season',
-    body: 'We plan from the calendar outward: what is in bloom, in the river, on the table. The route follows.',
+    title: msg('Built around the season'),
+    body: msg('We plan from the calendar outward: what is in bloom, in the river, on the table. The route follows.'),
   },
   {
-    title: 'Private, never rushed',
-    body: 'Your own guide, your own pace. Long lunches are allowed. So is an afternoon with nothing in it.',
+    title: msg('Private, never rushed'),
+    body: msg('Your own guide, your own pace. Long lunches are allowed. So is an afternoon with nothing in it.'),
   },
   {
-    title: 'Planned by people who live there',
-    body: 'Our specialists know the innkeepers by name and the trains by heart. They are a message away throughout.',
+    title: msg('Planned by people who live there'),
+    body: msg('Our specialists know the innkeepers by name and the trains by heart. They are a message away throughout.'),
   },
 ];
 
@@ -33,6 +35,7 @@ const cards = [
  * (transform only, so it stays smooth). Followed by four short cards around a portrait.
  */
 export function JourneysVideo() {
+  const { t } = useT();
   const track = useRef<HTMLDivElement>(null);
   const reduce = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({ target: track, offset: ['start start', 'end end'] });
@@ -47,7 +50,7 @@ export function JourneysVideo() {
             id="journeys-h"
             className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-display text-[18vw] leading-none text-sumi lg:text-[15vw]"
           >
-            Journeys
+            {t('Journeys')}
           </h2>
           <m.div
             className="relative h-svh w-full overflow-hidden"
@@ -57,7 +60,7 @@ export function JourneysVideo() {
               media={{
                 subject: 'Walking a cedar path on the Kumano Kodo, morning mist',
                 tone: 'cedar',
-                alt: 'A walker on a mossy stone path between tall cedars',
+                alt: t('A walker on a mossy stone path between tall cedars'),
                 captions: '/captions/journeys.vtt',
               }}
               src={videos.journeys}
@@ -66,7 +69,7 @@ export function JourneysVideo() {
               style={reduce ? undefined : { opacity: subtitle }}
               className="absolute inset-x-0 bottom-[8vh] mx-auto max-w-[34ch] px-gutter text-center text-body text-washi"
             >
-              Eight journeys to start from, each rewritten around your dates, your pace and the season you’ll arrive in.
+              {t('Eight journeys to start from, each rewritten around your dates, your pace and the season you’ll arrive in.')}
             </m.p>
           </m.div>
         </div>
@@ -78,8 +81,8 @@ export function JourneysVideo() {
             <div key={c} className={`flex flex-col gap-10 lg:gap-[3vw] ${c ? 'md:order-3' : ''}`}>
               {col.map((card, k) => (
                 <Reveal key={card.title} delay={k * 0.1}>
-                  <h3 className="text-h3">{card.title}</h3>
-                  <p className="mt-2 max-w-[34ch] text-body">{card.body}</p>
+                  <h3 className="text-h3">{t(card.title)}</h3>
+                  <p className="mt-2 max-w-[34ch] text-body">{t(card.body)}</p>
                 </Reveal>
               ))}
             </div>
@@ -89,7 +92,7 @@ export function JourneysVideo() {
           </Reveal>
         </div>
         <div className="mt-12 flex justify-center">
-          <Button href="/journeys">See all eight journeys</Button>
+          <Button href="/journeys">{t('See all eight journeys')}</Button>
         </div>
       </div>
     </section>

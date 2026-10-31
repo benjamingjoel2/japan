@@ -161,24 +161,6 @@ export interface Manner {
   note: string;
 }
 
-export interface TeamMember {
-  name: string;
-  role: string;
-  base: string;
-  intro: string;
-  bio: string[];
-  image: Media;
-  placeholder: true;
-}
-
-export interface Review {
-  quote: string;
-  name: string;
-  from: string;
-  trip: string;
-  placeholder: true;
-}
-
 export interface FaqItem {
   q: string;
   a: string[];

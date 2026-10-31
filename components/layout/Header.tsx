@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/components/i18n/Link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
@@ -9,6 +9,9 @@ import { anchors, pages, site } from '@/config/site';
 import { Button } from '@/components/ui/Button';
 import { Media } from '@/components/ui/Media';
 import { lockScroll } from './SmoothScroll';
+import { useT } from '@/components/i18n/I18nProvider';
+import { LanguageSelector } from '@/components/i18n/LanguageSelector';
+import { stripLocale } from '@/lib/i18n/config';
 
 function Logo({ light }: { light: boolean }) {
   return (
@@ -23,7 +26,8 @@ function Logo({ light }: { light: boolean }) {
 
 export function Header() {
   const pathname = usePathname();
-  const isHome = pathname === '/';
+  const { t, href: lh } = useT();
+  const isHome = stripLocale(pathname) === '/';
   const [overHero, setOverHero] = useState(isHome);
   const [hidden, setHidden] = useState(false);
   const [active, setActive] = useState<string | null>(null);
@@ -87,7 +91,7 @@ export function Header() {
     setOpen(false);
   }
 
-  const href = (id: string) => (isHome ? `#${id}` : `/#${id}`);
+  const href = (id: string) => (isHome ? `#${id}` : lh(`/#${id}`));
   const light = overHero && !open;
 
   return (
@@ -102,7 +106,7 @@ export function Header() {
             <Logo light={light} />
           </Link>
 
-          <nav aria-label="Sections" className="hidden items-center gap-8 lg:flex">
+          <nav aria-label={t('Sections')} className="hidden items-center gap-8 lg:flex">
             <ul className="flex items-center gap-[1.4vw]">
               {anchors.map((a) => {
                 const isActive = active === a.id;
@@ -119,14 +123,15 @@ export function Header() {
                           isActive ? 'scale-100' : 'scale-0 group-hover:scale-100'
                         }`}
                       />
-                      {a.label}
+                      {t(a.label)}
                     </a>
                   </li>
                 );
               })}
             </ul>
+            <LanguageSelector className={`text-label ${light ? 'text-washi' : 'text-sumi'}`} />
             <Button href={site.cta.href} variant={light ? 'outline-light' : 'dark'}>
-              {site.cta.label}
+              {t(site.cta.label)}
             </Button>
           </nav>
 
@@ -137,7 +142,7 @@ export function Header() {
             aria-controls="mobile-menu"
             onClick={() => setOpen((o) => !o)}
           >
-            {open ? 'Close' : 'Menu'}
+            {open ? t('Close') : t('Menu')}
           </button>
         </div>
       </header>
@@ -148,14 +153,15 @@ export function Header() {
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
-            aria-label="Menu"
+            aria-label={t('Menu')}
             className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-washi px-gutter pt-[calc(var(--header-h)+12px)] pb-6 lg:hidden"
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <nav aria-label="Sections">
+            <LanguageSelector className="mb-6 text-label" />
+            <nav aria-label={t('Sections')}>
               <ul className="flex flex-col gap-1">
                 {anchors.map((a, i) => (
                   <m.li
@@ -169,25 +175,25 @@ export function Header() {
                       onClick={() => setOpen(false)}
                       className="font-display text-[11vw] leading-[1.05] sm:text-[8vw]"
                     >
-                      {a.label}
+                      {t(a.label)}
                     </a>
                   </m.li>
                 ))}
               </ul>
             </nav>
             <div className="mt-8 flex flex-col gap-3">
-              <p className="label">Tell us when you&rsquo;d like to go. We&rsquo;ll do the rest.</p>
+              <p className="label">{t('Tell us when you’d like to go. We’ll do the rest.')}</p>
               <Button href={site.cta.href} className="w-full">
-                {site.cta.label}
+                {t(site.cta.label)}
               </Button>
             </div>
             <div className="mt-auto grid grid-cols-2 gap-4 pt-10">
               <div>
-                <p className="label mb-2">More</p>
+                <p className="label mb-2">{t('More')}</p>
                 <ul className="flex flex-col gap-1 text-[15px]">
                   {pages.slice(0, 6).map((p) => (
                     <li key={p.href}>
-                      <Link href={p.href}>{p.label}</Link>
+                      <Link href={p.href}>{t(p.label)}</Link>
                     </li>
                   ))}
                 </ul>

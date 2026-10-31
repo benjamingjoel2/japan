@@ -1,5 +1,18 @@
 import { microSeasons } from '@/data/seasons';
 import type { MicroSeason, MonthDay } from '@/data/types';
+import { intlLocale, type Locale } from '@/lib/i18n/config';
+
+const fmtCache = new Map<string, Intl.DateTimeFormat>();
+/** Month name in a locale (UTC, so server and browser agree). */
+export function monthName(m: number, locale: Locale = 'en', style: 'long' | 'short' = 'long') {
+  if (locale === 'en') return style === 'long' ? MONTH_NAMES[m - 1] : MONTH_NAMES[m - 1].slice(0, 3);
+  const key = `${locale}:${style}`;
+  let f = fmtCache.get(key);
+  if (!f) fmtCache.set(key, (f = new Intl.DateTimeFormat(intlLocale[locale], { month: style, timeZone: 'UTC' })));
+  const s = f.format(new Date(Date.UTC(2001, m - 1, 15)));
+  return s;
+}
+
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const MONTH_NAMES = [
@@ -13,12 +26,13 @@ export function dayOfYear({ m, d }: MonthDay) {
   return cum[m - 1] + Math.min(d, m === 2 ? 28 : 31);
 }
 
-export function formatMonthDay(md: MonthDay) {
-  return `${md.d} ${MONTHS[md.m - 1]}`;
+export function formatMonthDay(md: MonthDay, locale: Locale = 'en') {
+  return locale === 'en' ? `${md.d} ${MONTHS[md.m - 1]}` : `${md.d}${locale === 'de' ? '.' : ''} ${monthName(md.m, locale, 'short')}`;
 }
 
-export function formatRange(a: MonthDay, b: MonthDay) {
-  return a.m === b.m ? `${a.d}–${b.d} ${MONTHS[a.m - 1]}` : `${formatMonthDay(a)} – ${formatMonthDay(b)}`;
+export function formatRange(a: MonthDay, b: MonthDay, locale: Locale = 'en') {
+  if (a.m !== b.m) return `${formatMonthDay(a, locale)} – ${formatMonthDay(b, locale)}`;
+  return locale === 'en' ? `${a.d}–${b.d} ${MONTHS[a.m - 1]}` : `${a.d}${locale === 'de' ? '.' : ''}–${formatMonthDay(b, locale)}`;
 }
 
 function inRange(doy: number, s: MicroSeason) {
@@ -48,3 +62,5 @@ export function seasonsForMonths(months: number[]): MicroSeason[] {
   months.forEach((m) => seasonsInMonth(m).forEach((s) => set.set(s.n, s)));
   return [...set.values()].sort((x, y) => dayOfYear(x.start) - dayOfYear(y.start));
 }
+
+export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);

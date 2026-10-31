@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "i18n:extract": "node --experimental-strip-types --no-warnings scripts/i18n-extract.mjs",
+    "i18n:check": "node --experimental-strip-types --no-warnings scripts/i18n-extract.mjs check"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

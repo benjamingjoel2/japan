@@ -2,7 +2,8 @@
 
 import { useRef, useState } from 'react';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
-import { included } from '@/data/included';
+import type { Included } from '@/data/types';
+import { useT } from '@/components/i18n/I18nProvider';
 import { Media } from '@/components/ui/Media';
 
 const accents = ['var(--color-moss)', 'var(--color-beni)', '#a0782f', 'var(--color-moss)', 'var(--color-beni)', '#a0782f'];
@@ -11,7 +12,8 @@ const accents = ['var(--color-moss)', 'var(--color-beni)', '#a0782f', 'var(--col
  * Cards that pin at the same offset and stack over each other as you scroll.
  * The accent word in the heading shifts colour with each new card.
  */
-export function IncludedStack() {
+export function IncludedStack({ items: included }: { items: Included[] }) {
+  const { t } = useT();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const [i, setI] = useState(0);
@@ -23,11 +25,11 @@ export function IncludedStack() {
     <div ref={ref} className="relative px-gutter pb-section">
       <div className="sticky top-[var(--header-h)] z-20 bg-washi pt-6 pb-4 lg:top-0 lg:pt-[3vw] lg:pb-[2vw]">
         <h3 className="text-center font-display text-[40px] leading-none text-moss md:text-[7vw] lg:text-h2">
-          Included in{' '}
+          {t('Included in')}{' '}
           <span className="transition-colors duration-700" style={{ color: accents[i] }}>
-            every
+            {t('every')}
           </span>{' '}
-          journey
+          {t('journey')}
         </h3>
       </div>
       <ol>

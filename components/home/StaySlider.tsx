@@ -2,12 +2,13 @@
 
 import { AnimatePresence, m } from 'framer-motion';
 import { useState } from 'react';
-import { stays } from '@/data/stays';
+import type { Stay } from '@/data/types';
+import { useT } from '@/components/i18n/I18nProvider';
 import { Media } from '@/components/ui/Media';
 import { Button } from '@/components/ui/Button';
 import { SpecTable } from '@/components/ui/SpecTable';
 import { PlaceholderTag } from '@/components/ui/Tags';
-import { staySpecRows } from '@/components/cards/Cards';
+import { staySpecRows } from '@/lib/stay';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -25,7 +26,8 @@ function Arrow({ dir }: { dir: 'prev' | 'next' }) {
   );
 }
 
-export function StaySlider() {
+export function StaySlider({ stays }: { stays: Stay[] }) {
+  const { t } = useT();
   const [i, setI] = useState(0);
   const s = stays[i];
   const go = (d: number) => setI((n) => (n + d + stays.length) % stays.length);
@@ -33,7 +35,7 @@ export function StaySlider() {
   return (
     <section
       aria-roledescription="carousel"
-      aria-label="Stays"
+      aria-label={t('Stays')}
       className="relative px-gutter pb-section"
       onKeyDown={(e) => {
         if (e.key === 'ArrowRight') go(1);
@@ -41,15 +43,15 @@ export function StaySlider() {
       }}
     >
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="label">Stays</h3>
+        <h3 className="label">{t('Stays')}</h3>
         <div className="flex items-center gap-1">
-          <button type="button" onClick={() => go(-1)} aria-label="Previous stay" className="grid size-10 place-items-center">
+          <button type="button" onClick={() => go(-1)} aria-label={t('Previous stay')} className="grid size-10 place-items-center">
             <Arrow dir="prev" />
           </button>
           <span className="text-label tabular-nums text-moss" aria-live="polite">
             {i + 1} / {stays.length}
           </span>
-          <button type="button" onClick={() => go(1)} aria-label="Next stay" className="grid size-10 place-items-center">
+          <button type="button" onClick={() => go(1)} aria-label={t('Next stay')} className="grid size-10 place-items-center">
             <Arrow dir="next" />
           </button>
         </div>
@@ -60,7 +62,7 @@ export function StaySlider() {
           key={s.slug}
           role="group"
           aria-roledescription="slide"
-          aria-label={`${i + 1} of ${stays.length}: ${s.name}`}
+          aria-label={t('{i} of {n}: {name}', { i: i + 1, n: stays.length, name: s.name })}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -72,15 +74,15 @@ export function StaySlider() {
           </div>
           <div className="flex flex-col gap-4 md:px-[1vw]">
             <div className="flex items-center gap-2">
-              <span className="label capitalize">{s.type}</span>
+              <span className="label capitalize">{t(s.type)}</span>
               <PlaceholderTag className="text-moss" />
             </div>
             <h4 className="font-display text-[40px] leading-none md:text-[7vw] lg:text-[4vw]">{s.name}</h4>
             <p className="max-w-[40ch] text-body">{s.summary}</p>
             <div>
-              <Button href={`/stays/${s.slug}`}>See this stay</Button>
+              <Button href={`/stays/${s.slug}`}>{t('See this stay')}</Button>
             </div>
-            <SpecTable rows={staySpecRows(s)} className="mt-auto border-t border-line pt-3" />
+            <SpecTable rows={staySpecRows(s, t)} className="mt-auto border-t border-line pt-3" />
           </div>
           <div className="relative hidden aspect-[3/4] self-start overflow-hidden rounded-media md:block">
             <Media media={s.images[1]} ratio={3 / 4} sizes="20vw" />
@@ -88,7 +90,7 @@ export function StaySlider() {
         </m.div>
       </AnimatePresence>
 
-      <div className="mt-6 flex justify-center gap-0.5" role="group" aria-label="Choose a stay">
+      <div className="mt-6 flex justify-center gap-0.5" role="group" aria-label={t('Choose a stay')}>
         {stays.map((st, n) => (
           <button
             key={st.slug}

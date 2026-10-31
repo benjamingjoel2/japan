@@ -2,18 +2,20 @@
 
 import { AnimatePresence, m } from 'framer-motion';
 import { useId, useState } from 'react';
-import { faq } from '@/data/faq';
+import type { FaqItem } from '@/data/types';
+import { useT } from '@/components/i18n/I18nProvider';
 import { Media } from '@/components/ui/Media';
 import { VerifyTag } from '@/components/ui/Tags';
 
-export function Faq() {
+export function Faq({ items: faq }: { items: FaqItem[] }) {
+  const { t } = useT();
   const [open, setOpen] = useState<number | null>(0);
   const base = useId();
   return (
     <section id="faq" aria-labelledby="faq-h" className="bg-washi px-gutter py-section">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_2fr] md:gap-grid">
         <h2 id="faq-h" className="text-h2 md:sticky md:top-[calc(var(--header-h)+1rem)] md:self-start">
-          FAQ
+          {t('FAQ')}
         </h2>
         <ul className="border-t border-line">
           {faq.map((item, i) => {

@@ -1,4 +1,5 @@
 'use client';
+import { useT } from '@/components/i18n/I18nProvider';
 
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '@/lib/hooks';
@@ -28,6 +29,7 @@ export function VideoPlayer({
   /** Load the poster eagerly (only for the first screen). */
   priority?: boolean;
 }) {
+  const { t } = useT();
   const ref = useRef<HTMLVideoElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
   const reduce = usePrefersReducedMotion();
@@ -58,7 +60,7 @@ export function VideoPlayer({
           playsInline
           preload="metadata"
           poster={photoFor(media.subject) ? `${photoFor(media.subject)!.src}?w=1600&q=70&auto=format&fit=max` : undefined}
-          aria-label={media.alt ?? media.subject}
+          aria-label={t(media.alt ?? media.subject)}
         >
           <source src={url} type="video/mp4" />
           {media.captions && <track kind="captions" src={media.captions} srcLang="en" label="English" />}
@@ -66,15 +68,15 @@ export function VideoPlayer({
       ) : (
         <div
           role="img"
-          aria-label={media.alt ?? media.subject}
+          aria-label={t(media.alt ?? media.subject)}
           className={`absolute -inset-[4%] ${drift && !reduce ? 'animate-[drift_24s_ease-in-out_infinite_alternate]' : ''}`}
         >
-          <Media media={media} label={false} priority={priority} sizes="100vw" />
+          <Media media={media} label={false} priority={priority} sizes="100vw" phoneRatio={0.5} />
         </div>
       )}
       {!url && label && !photoFor(media.subject) && !media.src && (
         <span className="pointer-events-none absolute right-[var(--gutter)] bottom-3 z-[1] hidden max-w-[60%] text-right md:block text-[10px] tracking-wide text-white/60 uppercase">
-          Video placeholder · {media.subject}
+          {t('Video placeholder')} · {t(media.subject)}
         </span>
       )}
     </div>

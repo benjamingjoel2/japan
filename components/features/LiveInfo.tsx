@@ -1,6 +1,7 @@
 'use client';
+import { useT } from '@/components/i18n/I18nProvider';
 
-import Link from 'next/link';
+import Link from '@/components/i18n/Link';
 import { useMemo } from 'react';
 import { useIsClient, useNow } from '@/lib/hooks';
 import { getMicroSeason } from '@/lib/seasons';
@@ -14,11 +15,12 @@ function tokyoParts(d: Date) {
 
 /** Live Tokyo clock with a blinking colon. Renders a stable placeholder on the server. */
 export function TokyoClock() {
+  const { t } = useT();
   const now = useNow(15_000);
   if (!now) return <span className="tabular-nums">--:--</span>;
   const { h, m } = tokyoParts(now);
   return (
-    <time dateTime={now.toISOString()} className="tabular-nums" aria-label={`${h}:${m} in Tokyo`}>
+    <time dateTime={now.toISOString()} className="tabular-nums" aria-label={t('{time} in Tokyo', { time: `${h}:${m}` })}>
       {h}
       <span className="blink" aria-hidden="true">
         :
@@ -36,6 +38,7 @@ export function KyotoSunrise() {
 
 /** Today's micro-season (computed in Japan time on the client so it never goes stale in a cached page). */
 export function MicroSeasonNow({ withLink = true, className = '' }: { withLink?: boolean; className?: string }) {
+  const { t } = useT();
   const client = useIsClient();
   const s = useMemo(() => (client ? getMicroSeason() : null), [client]);
   if (!s) return <span className={className}>&nbsp;</span>;
@@ -44,7 +47,7 @@ export function MicroSeasonNow({ withLink = true, className = '' }: { withLink?:
       <span lang="ja" className="font-jp">
         {s.ja}
       </span>{' '}
-      <span>{s.en}</span>
+      <span>{t(s.en)}</span>
     </>
   );
   return withLink ? (

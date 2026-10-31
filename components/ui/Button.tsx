@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/i18n/Link';
 import type { ComponentProps, ReactNode } from 'react';
 
 type Variant = 'dark' | 'light' | 'outline-light' | 'outline';

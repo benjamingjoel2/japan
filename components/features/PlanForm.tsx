@@ -3,16 +3,17 @@
 import { useSearchParams } from 'next/navigation';
 import { useMemo, useRef, useState, type ReactNode } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
-import { blossomRegions } from '@/data/blossom';
+import { useT } from '@/components/i18n/I18nProvider';
+import { msg } from '@/lib/i18n/config';
 import { budgets, contactMethods, interests, paces, stayStyles } from '@/lib/enquiry';
-import { dayOfYear, formatRange, MONTH_NAMES, seasonsInMonth } from '@/lib/seasons';
+import { capitalize, dayOfYear, formatRange, monthName, seasonsInMonth } from '@/lib/seasons';
 import { formatPrice, useCurrency } from '@/lib/currency';
-import type { MonthDay } from '@/data/types';
+import type { BlossomRegion, MonthDay } from '@/data/types';
 
 const paceNotes: Record<(typeof paces)[number], string> = {
-  gentle: 'One thing a day, long lunches',
-  balanced: 'A morning and an afternoon, free evenings',
-  fuller: 'Early starts, more to see',
+  gentle: msg('One thing a day, long lunches'),
+  balanced: msg('A morning and an afternoon, free evenings'),
+  fuller: msg('Early starts, more to see'),
 };
 
 function Field({ label, hint, error, children, id }: { label: string; hint?: string; error?: string; children: ReactNode; id?: string }) {
@@ -78,7 +79,8 @@ function inWindow(month: number, w: { from: MonthDay; to: MonthDay }) {
 }
 
 /** Inline seasonal context for the chosen month: micro-seasons + typical blossom/leaf regions. */
-function MonthContext({ month }: { month: number }) {
+function MonthContext({ month, blossomRegions }: { month: number; blossomRegions: BlossomRegion[] }) {
+  const { t, locale } = useT();
   const kos = seasonsInMonth(month);
   const blossom = blossomRegions.filter((r) => inWindow(month, r.blossom));
   const leaves = blossomRegions.filter((r) => r.id !== 'okinawa' && inWindow(month, r.leaves));
@@ -90,16 +92,16 @@ function MonthContext({ month }: { month: number }) {
       className="grid gap-4 rounded-media bg-washi-deep/60 p-4 text-[14px] md:grid-cols-2"
     >
       <div>
-        <p className="mb-2 text-moss">Micro-seasons in {MONTH_NAMES[month - 1]}</p>
+        <p className="mb-2 text-moss">{t('Micro-seasons in {month}', { month: monthName(month, locale) })}</p>
         <ul className="flex flex-col gap-1">
           {kos.map((k) => (
             <li key={k.n} className="flex gap-2">
-              <span className="w-24 shrink-0 text-[12px] text-sumi-soft tabular-nums">{formatRange(k.start, k.end)}</span>
+              <span className="w-24 shrink-0 text-[12px] text-sumi-soft tabular-nums">{formatRange(k.start, k.end, locale)}</span>
               <span>
                 <span lang="ja" className="mr-1.5 font-jp">
                   {k.ja}
                 </span>
-                {k.en}
+                {t(k.en)}
               </span>
             </li>
           ))}
@@ -108,23 +110,24 @@ function MonthContext({ month }: { month: number }) {
       <div className="flex flex-col gap-3">
         <div>
           <p className="mb-1 flex items-center gap-1.5 text-moss">
-            <span className="size-2 rounded-full bg-blossom" /> Cherry blossom, typically
+            <span className="size-2 rounded-full bg-blossom" /> {t('Cherry blossom, typically')}
           </p>
-          <p>{blossom.length ? blossom.map((r) => r.name).join(', ') : 'Not in season this month.'}</p>
+          <p>{blossom.length ? blossom.map((r) => r.name).join(', ') : t('Not in season this month.')}</p>
         </div>
         <div>
           <p className="mb-1 flex items-center gap-1.5 text-moss">
-            <span className="size-2 rounded-full bg-koyo" /> Autumn leaves, typically
+            <span className="size-2 rounded-full bg-koyo" /> {t('Autumn leaves, typically')}
           </p>
-          <p>{leaves.length ? leaves.map((r) => r.name).join(', ') : 'Not in season this month.'}</p>
+          <p>{leaves.length ? leaves.map((r) => r.name).join(', ') : t('Not in season this month.')}</p>
         </div>
-        <p className="text-[12px] text-sumi-soft">Typical windows, not forecasts.</p>
+        <p className="text-[12px] text-sumi-soft">{t('Typical windows, not forecasts.')}</p>
       </div>
     </m.div>
   );
 }
 
-export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, string> }) {
+export function PlanForm({ journeyTitles, regions }: { journeyTitles: Record<string, string>; regions: BlossomRegion[] }) {
+  const { t, locale, href } = useT();
   const params = useSearchParams();
   const { currency } = useCurrency();
   const pre = {
@@ -147,7 +150,7 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
     email: '',
     phone: '',
     contact: 'email',
-    notes: pre.journey ? `I'm interested in ${journeyTitles[pre.journey] ?? pre.journey}.` : '',
+    notes: pre.journey ? t('I’m interested in {journey}.', { journey: journeyTitles[pre.journey] ?? pre.journey }) : '',
     website: '',
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
@@ -158,9 +161,9 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
   const thisYear = useMemo(() => new Date().getFullYear(), []);
 
   const budgetLabel = (b: (typeof budgets)[number]) => {
-    if (b.id === 'unsure') return 'Not sure yet';
+    if (b.id === 'unsure') return t('Not sure yet');
     const [lo, hi] = b.jpy;
-    if (!lo) return `Under ${formatPrice(hi, currency)}`;
+    if (!lo) return t('Under {price}', { price: formatPrice(hi, currency) });
     if (!hi) return `${formatPrice(lo, currency)}+`;
     return `${formatPrice(lo, currency)} – ${formatPrice(hi, currency)}`;
   };
@@ -170,10 +173,10 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
     setStatus('sending');
     setErrors({});
     const local: Record<string, string> = {};
-    if (!v.month) local.month = 'Choose a month, or “Flexible”';
-    if (!v.name.trim()) local.name = 'Please tell us your name';
-    if (!/^\S+@\S+\.\S+$/.test(v.email)) local.email = 'Please check your email address';
-    if (v.contact !== 'email' && v.phone.trim().length < 6) local.phone = 'Please add a phone number so we can reach you that way';
+    if (!v.month) local.month = t('Choose a month, or “Flexible”');
+    if (!v.name.trim()) local.name = t('Please tell us your name');
+    if (!/^\S+@\S+\.\S+$/.test(v.email)) local.email = t('Please check your email address');
+    if (v.contact !== 'email' && v.phone.trim().length < 6) local.phone = t('Please add a phone number so we can reach you that way');
     if (Object.keys(local).length) {
       setErrors(local);
       setStatus('error');
@@ -184,18 +187,22 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
       const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...v, currency, ...pre }),
+        body: JSON.stringify({ ...v, currency, locale, ...pre }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
-        setErrors(data.fields ?? { form: data.error ?? 'Something went wrong. Please try again.' });
+        setErrors(
+          data.fields
+            ? Object.fromEntries(Object.entries(data.fields as Record<string, string>).map(([k, e]) => [k, t(e)]))
+            : { form: t(data.error ?? 'Something went wrong. Please try again.') },
+        );
         setStatus('error');
         return;
       }
       setStatus('done');
       topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch {
-      setErrors({ form: 'We couldn’t send that. Please check your connection and try again.' });
+      setErrors({ form: t('We couldn’t send that. Please check your connection and try again.') });
       setStatus('error');
     }
   }
@@ -211,9 +218,9 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
             animate={{ opacity: 1 }}
             className="flex min-h-[50vh] flex-col items-start justify-center gap-4 py-16"
           >
-            <p className="text-h2">Thank you. We&rsquo;ll write soon.</p>
+            <p className="text-h2">{t('Thank you. We’ll write soon.')}</p>
             <p className="max-w-[40ch] text-body text-sumi-soft">
-              A specialist will read your note properly and reply within two working days, usually sooner.
+              {t('A specialist will read your note properly and reply within two working days, usually sooner.')}
             </p>
           </m.div>
         ) : (
@@ -221,90 +228,90 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
             {/* Honeypot */}
             <div aria-hidden="true" className="absolute -left-[9999px]">
               <label>
-                Website
+                {t('Website')}
                 <input tabIndex={-1} autoComplete="off" value={v.website} onChange={(e) => set('website', e.target.value)} />
               </label>
             </div>
 
             <section aria-labelledby="s-when" className="flex flex-col gap-6">
               <h2 id="s-when" className="text-h3">
-                When
+                {t('When')}
               </h2>
               <div className="grid gap-4 sm:grid-cols-[2fr_1fr_1fr]">
-                <Field label="Month" id="f-month" error={errors.month}>
+                <Field label={t('Month')} id="f-month" error={errors.month}>
                   <select id="f-month" className={input} value={v.month} onChange={(e) => set('month', e.target.value)} aria-invalid={!!errors.month}>
-                    <option value="">Choose a month</option>
-                    <option value="flexible">Flexible, advise me</option>
-                    {MONTH_NAMES.map((m, i) => (
-                      <option key={m} value={String(i + 1)}>
-                        {m}
+                    <option value="">{t('Choose a month')}</option>
+                    <option value="flexible">{t('Flexible, advise me')}</option>
+                    {Array.from({ length: 12 }, (_, i) => (
+                      <option key={i} value={String(i + 1)}>
+                        {capitalize(monthName(i + 1, locale))}
                       </option>
                     ))}
                   </select>
                 </Field>
-                <Field label="Year" id="f-year">
+                <Field label={t('Year')} id="f-year">
                   <select id="f-year" className={input} value={v.year} onChange={(e) => set('year', e.target.value)}>
-                    <option value="">Not sure</option>
+                    <option value="">{t('Not sure')}</option>
                     {[0, 1, 2].map((d) => (
                       <option key={d}>{thisYear + d}</option>
                     ))}
                   </select>
                 </Field>
-                <Field label="How many days" id="f-days">
+                <Field label={t('How many days')} id="f-days">
                   <input id="f-days" type="number" min={3} max={60} className={input} value={v.days} onChange={(e) => set('days', e.target.value)} />
                 </Field>
               </div>
               <AnimatePresence mode="wait">
-                {v.month && v.month !== 'flexible' && <MonthContext month={+v.month} />}
+                {v.month && v.month !== 'flexible' && <MonthContext month={+v.month} blossomRegions={regions} />}
               </AnimatePresence>
             </section>
 
             <section aria-labelledby="s-you" className="flex flex-col gap-6">
               <h2 id="s-you" className="text-h3">
-                Your trip
+                {t('Your trip')}
               </h2>
-              <Group legend="Is this your first time in Japan?">
+              <Group legend={t('Is this your first time in Japan?')}>
                 {[
-                  ['first', 'First time'],
-                  ['returning', 'Returning'],
+                  ['first', t('First time')],
+                  ['returning', t('Returning')],
                 ].map(([val, l]) => (
                   <Choice key={val} type="radio" name="visit" value={val} checked={v.visit === val} onChange={() => set('visit', val)}>
                     {l}
                   </Choice>
                 ))}
               </Group>
-              <Group legend="What do you love?" hint="Choose as many as you like.">
+              <Group legend={t('What do you love?')} hint={t('Choose as many as you like.')}>
                 {interests.map((i) => (
                   <Choice key={i} type="checkbox" name="interests" value={i} checked={v.interests.includes(i)} onChange={() => toggle(i)}>
-                    <span className="capitalize">{i}</span>
+                    <span className="capitalize">{t(i)}</span>
                   </Choice>
                 ))}
               </Group>
-              <Group legend="Pace">
+              <Group legend={t('Pace')}>
                 {paces.map((p) => (
                   <Choice key={p} type="radio" name="pace" value={p} checked={v.pace === p} onChange={() => set('pace', p)}>
-                    <span className="capitalize">{p}</span>
+                    <span className="capitalize">{t(p)}</span>
                     <span className="sr-only">: </span>
-                    <span className={`ml-2 text-[12px] ${v.pace === p ? 'text-washi/70' : 'text-moss'}`}>{paceNotes[p]}</span>
+                    <span className={`ml-2 text-[12px] ${v.pace === p ? 'text-washi/70' : 'text-moss'}`}>{t(paceNotes[p])}</span>
                   </Choice>
                 ))}
               </Group>
-              <Group legend="Where would you like to stay?">
+              <Group legend={t('Where would you like to stay?')}>
                 {stayStyles.map((s) => (
                   <Choice key={s} type="radio" name="stayStyle" value={s} checked={v.stayStyle === s} onChange={() => set('stayStyle', s)}>
-                    <span className="capitalize">{s === 'mix' ? 'A mix of both' : s === 'ryokan' ? 'Mostly ryokan' : 'Mostly design hotels'}</span>
+                    <span className="capitalize">{s === 'mix' ? t('A mix of both') : s === 'ryokan' ? t('Mostly ryokan') : t('Mostly design hotels')}</span>
                   </Choice>
                 ))}
               </Group>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Adults" id="f-adults">
+                <Field label={t('Adults')} id="f-adults">
                   <input id="f-adults" type="number" min={1} max={20} className={input} value={v.adults} onChange={(e) => set('adults', e.target.value)} />
                 </Field>
-                <Field label="Children" id="f-children" hint="Under 16">
+                <Field label={t('Children')} id="f-children" hint={t('Under 16')}>
                   <input id="f-children" type="number" min={0} max={20} className={input} value={v.children} onChange={(e) => set('children', e.target.value)} />
                 </Field>
               </div>
-              <Group legend="Budget per person, excluding flights" hint={currency === 'JPY' ? undefined : 'Approximate conversion from yen.'}>
+              <Group legend={t('Budget per person, excluding flights')} hint={currency === 'JPY' ? undefined : t('Approximate conversion from yen.')}>
                 {budgets.map((b) => (
                   <Choice key={b.id} type="radio" name="budget" value={b.id} checked={v.budget === b.id} onChange={() => set('budget', b.id)}>
                     {budgetLabel(b)}
@@ -315,27 +322,27 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
 
             <section aria-labelledby="s-contact" className="flex flex-col gap-6">
               <h2 id="s-contact" className="text-h3">
-                How to reach you
+                {t('How to reach you')}
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Name" id="f-name" error={errors.name}>
+                <Field label={t('Name')} id="f-name" error={errors.name}>
                   <input id="f-name" autoComplete="name" className={input} value={v.name} onChange={(e) => set('name', e.target.value)} aria-invalid={!!errors.name} required />
                 </Field>
-                <Field label="Email" id="f-email" error={errors.email}>
+                <Field label={t('Email')} id="f-email" error={errors.email}>
                   <input id="f-email" type="email" autoComplete="email" className={input} value={v.email} onChange={(e) => set('email', e.target.value)} aria-invalid={!!errors.email} required />
                 </Field>
-                <Field label="Phone" id="f-phone" hint="Optional, unless you'd like a call or WhatsApp" error={errors.phone}>
+                <Field label={t('Phone')} id="f-phone" hint={t('Optional, unless you’d like a call')} error={errors.phone}>
                   <input id="f-phone" type="tel" autoComplete="tel" className={input} value={v.phone} onChange={(e) => set('phone', e.target.value)} aria-invalid={!!errors.phone} />
                 </Field>
               </div>
-              <Group legend="Best way to reach you">
+              <Group legend={t('Best way to reach you')}>
                 {contactMethods.map((c) => (
                   <Choice key={c} type="radio" name="contact" value={c} checked={v.contact === c} onChange={() => set('contact', c)}>
-                    {c === 'whatsapp' ? 'WhatsApp' : c[0].toUpperCase() + c.slice(1)}
+                    {c === 'email' ? t('Email') : t('Phone')}
                   </Choice>
                 ))}
               </Group>
-              <Field label="Anything else?" id="f-notes" hint="Dietary needs, mobility, a birthday, a place you've always wanted to see.">
+              <Field label={t('Anything else?')} id="f-notes" hint={t('Dietary needs, mobility, a birthday, a place you’ve always wanted to see.')}>
                 <textarea id="f-notes" rows={5} className={input} value={v.notes} onChange={(e) => set('notes', e.target.value)} />
               </Field>
             </section>
@@ -351,12 +358,12 @@ export function PlanForm({ journeyTitles }: { journeyTitles: Record<string, stri
                 disabled={status === 'sending'}
                 className="h-12 rounded-full bg-sumi px-8 text-[15px] text-washi disabled:opacity-60"
               >
-                {status === 'sending' ? 'Sending…' : 'Send to a specialist'}
+                {status === 'sending' ? t('Sending…') : t('Send to a specialist')}
               </button>
               <p className="max-w-[52ch] text-[13px] text-moss">
-                No obligation and no payment. We use your details only to plan your trip. See our{' '}
-                <a href="/legal#privacy" className="underline underline-offset-4">
-                  privacy notice
+                {t('No obligation and no payment. We use your details only to plan your trip. See our')}{' '}
+                <a href={href('/privacy')} className="underline underline-offset-4">
+                  {t('Privacy Policy')}
                 </a>
                 .
               </p>
