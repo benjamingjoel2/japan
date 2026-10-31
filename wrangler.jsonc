@@ -17,14 +17,6 @@
 			"service": "japan"
 		}
 	],
-	"r2_buckets": [
-		{
-			// Incremental (ISR / "use cache") cache. Create the bucket before the first deploy:
-			//   npx wrangler r2 bucket create japan-opennext-cache
-			"binding": "NEXT_INC_CACHE_R2_BUCKET",
-			"bucket_name": "japan-opennext-cache"
-		}
-	],
 	"observability": {
 		"enabled": true
 	}
