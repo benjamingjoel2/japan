@@ -1,0 +1,4 @@
+# Cloudflare Workers static assets headers (ignored by Vercel).
+# https://developers.cloudflare.com/workers/static-assets/headers
+/_next/static/*
+  Cache-Control: public,max-age=31536000,immutable

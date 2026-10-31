@@ -1,0 +1,31 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	// Cloudflare Workers deployment via the OpenNext adapter (@opennextjs/cloudflare).
+	// Vercel ignores this file; "next build" is unchanged.
+	"name": "japan",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2026-10-23",
+	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"services": [
+		{
+			// Self-reference service binding; the service name must match the worker name.
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "japan"
+		}
+	],
+	"r2_buckets": [
+		{
+			// Incremental (ISR / "use cache") cache. Create the bucket before the first deploy:
+			//   npx wrangler r2 bucket create japan-opennext-cache
+			"binding": "NEXT_INC_CACHE_R2_BUCKET",
+			"bucket_name": "japan-opennext-cache"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}
