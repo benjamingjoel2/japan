@@ -3,7 +3,8 @@
 import { m, useScroll, useTransform } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { useRef } from 'react';
-import { ryokanNight } from '@/data/ryokan-night';
+import type { ryokanNight as RyokanNight } from '@/data/ryokan-night';
+import { useT } from '@/components/i18n/I18nProvider';
 import { videos } from '@/config/media';
 import type { VideoMedia } from '@/data/types';
 import { VideoPlayer } from '@/components/ui/VideoPlayer';
@@ -50,11 +51,12 @@ function Layer({
   );
 }
 
-export function RyokanStory() {
+export function RyokanStory({ night: ryokanNight }: { night: typeof RyokanNight }) {
+  const { t } = useT();
   const intro: VideoMedia = {
     subject: 'Lanterns lit along a ryokan entrance at dusk, rain on stone',
     tone: 'lantern',
-    alt: 'Paper lanterns glowing at a ryokan entrance at dusk',
+    alt: t('Paper lanterns glowing at a ryokan entrance at dusk'),
     captions: '/captions/ryokan-0.vtt',
   };
   return (
@@ -93,14 +95,14 @@ export function RyokanStory() {
         <div className="pointer-events-auto sticky top-[calc(var(--header-h)+2rem)] flex flex-col items-end gap-3 text-right text-washi">
           <p className="max-w-[16rem] text-label">{ryokanNight.cta}</p>
           <Button href="/plan" variant="outline-light">
-            Plan with us
+            {t('Plan with us')}
           </Button>
         </div>
       </div>
       <div className="relative z-20 px-gutter py-8 text-washi md:hidden">
         <p className="mb-3 text-label">{ryokanNight.cta}</p>
         <Button href="/plan" variant="outline-light" className="w-full">
-          Plan with us
+          {t('Plan with us')}
         </Button>
       </div>
     </section>

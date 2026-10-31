@@ -1,5 +1,6 @@
-import Link from 'next/link';
+import Link from '@/components/i18n/Link';
 import { anchors, legalLinks, pages, site } from '@/config/site';
+import { t } from '@/lib/i18n/server';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -15,15 +16,14 @@ export function Footer() {
             <a href={`mailto:${site.company.email}`} className="mt-3 underline-offset-4 hover:underline">
               {site.company.email}
             </a>
-            <span>{site.company.phone}</span>
           </address>
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-6">
+          <nav aria-label={t('Footer')} className="grid grid-cols-2 gap-6">
             <ul className="flex flex-col">
               <li>
                 <Link href="/" className="group flex items-center gap-2 font-display text-[28px] leading-[1.15] lg:text-[2.2vw]">
                   <span aria-hidden="true" className="size-1.5 scale-0 rounded-full bg-beni transition-transform group-hover:scale-100" />
-                  Welcome
+                  {t('Welcome')}
                 </Link>
               </li>
               {anchors.slice(0, 6).map((a) => (
@@ -33,7 +33,7 @@ export function Footer() {
                     className="group flex items-center gap-2 font-display text-[28px] leading-[1.15] lg:text-[2.2vw]"
                   >
                     <span aria-hidden="true" className="size-1.5 scale-0 rounded-full bg-beni transition-transform group-hover:scale-100" />
-                    {a.label}
+                    {t(a.label)}
                   </Link>
                 </li>
               ))}
@@ -42,7 +42,7 @@ export function Footer() {
               {pages.map((p) => (
                 <li key={p.href}>
                   <Link href={p.href} className="inline-block py-0.5 hover:text-washi">
-                    {p.label}
+                    {t(p.label)}
                   </Link>
                 </li>
               ))}
@@ -50,21 +50,13 @@ export function Footer() {
           </nav>
 
           <div className="flex flex-col gap-1.5 text-label text-washi/80 md:items-end md:text-right">
-            {site.socials.map((s) => (
-              <a key={s.label} href={s.href} className="py-0.5 hover:text-washi">
-                {s.label}
-              </a>
-            ))}
-            <div className="mt-6 flex flex-col gap-1.5 md:items-end">
+            <div className="flex flex-col gap-1.5 md:items-end">
               {legalLinks.map((l) => (
                 <Link key={l.href} href={l.href} className="py-0.5 hover:text-washi">
-                  {l.label}
+                  {t(l.label)}
                 </Link>
               ))}
             </div>
-            <p className="mt-6 max-w-xs text-[12px] leading-snug text-washi/60">
-              {site.company.registration}. {site.company.partner}.
-            </p>
           </div>
         </div>
 
@@ -74,9 +66,9 @@ export function Footer() {
           </p>
           {/* Left padding keeps the line clear of the fixed back-to-top button. */}
           <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pl-12 text-label text-washi/70 lg:pl-16">
-            <span>© {year} {site.name}. All rights reserved.</span>
+            <span>© {year} {site.name}. {t('All rights reserved.')}</span>
             <span lang="ja" className="font-jp">
-              {site.ja} · {site.tagline}
+              {site.ja} · <span lang={undefined}>{t(site.tagline)}</span>
             </span>
           </div>
         </div>

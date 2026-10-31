@@ -20,21 +20,19 @@ export const site = {
     ['Slow', 'Japan'],
   ] as const,
   cta: { label: 'Plan with us', href: '/plan' },
-  // PLACEHOLDER company details — replace before launch.
   company: {
-    legalName: 'Komorebi Journeys Ltd. (placeholder)',
-    // No street address shown for now. Add the lines here (e.g. a virtual-office address you hold)
-    // and they appear in the footer and on the Legal page.
-    address: [] as string[],
+    legalName: BRAND,
+    // Business address: Servcorp Marunouchi Nijubashi Building (premium serviced office and
+    // coworking, Tokyo). Source: servcorp.co.jp/en/locations/; street number per OpenStreetMap (丸の内二重橋ビル, 3-2-3).
+    address: ['Marunouchi Nijubashi Building', '3-2-3 Marunouchi, Chiyoda-ku', 'Tokyo 100-0005', 'Japan'],
+    postal: {
+      streetAddress: 'Marunouchi Nijubashi Building, 3-2-3 Marunouchi',
+      addressLocality: 'Chiyoda-ku, Tokyo',
+      postalCode: '100-0005',
+      addressCountry: 'JP',
+    },
     email: `${SLUG}@${DOMAIN}`,
-    phone: '+00 0000 000000',
-    registration: 'Travel agency registration no. 0000 (placeholder)',
-    partner: 'Licensed Japanese partner: Placeholder Travel K.K., Japan Tourism Agency registration no. 0000 (placeholder)',
   },
-  socials: [
-    { label: 'Instagram', href: '#' },
-    { label: 'Newsletter', href: '#' },
-  ],
 } as const;
 
 export type AnchorItem = { id: string; label: string };
@@ -47,8 +45,6 @@ export const anchors: AnchorItem[] = [
   { id: 'journeys', label: 'Journeys' },
   { id: 'a-night', label: 'A Night' },
   { id: 'manners', label: 'Manners' },
-  { id: 'team', label: 'Team' },
-  { id: 'words', label: 'Words' },
   { id: 'faq', label: 'FAQ' },
 ];
 
@@ -66,9 +62,7 @@ export const pages = [
 ] as const;
 
 export const legalLinks = [
-  { href: '/legal#terms', label: 'Booking terms' },
-  { href: '/legal#privacy', label: 'Privacy' },
-  { href: '/legal#cookies', label: 'Cookies' },
-  { href: '/legal#licence', label: 'Licence & registration' },
-  { href: '/credits', label: 'Photo credits' },
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/booking-terms', label: 'Booking Terms' },
+  { href: '/cookies', label: 'Cookie Policy' },
 ] as const;

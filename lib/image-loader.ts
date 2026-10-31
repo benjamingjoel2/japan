@@ -22,7 +22,7 @@ export default function imageLoader({ src, width, quality }: ImageLoaderProps) {
     if (ar > 0) {
       url.searchParams.set('h', String(Math.round(width / ar)));
       url.searchParams.set('fit', 'crop');
-      url.searchParams.set('crop', 'entropy');
+      if (url.searchParams.get('crop') !== 'center') url.searchParams.set('crop', 'entropy');
     } else {
       url.searchParams.set('fit', 'max');
     }

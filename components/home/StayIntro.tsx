@@ -1,3 +1,4 @@
+import { t, tx } from '@/lib/i18n/server';
 import { Media } from '@/components/ui/Media';
 import { Reveal, SplitWords } from '@/components/ui/Reveal';
 
@@ -9,7 +10,7 @@ function Seal() {
       </defs>
       <circle cx="60" cy="60" r="58" fill="var(--color-beni)" />
       <text fontSize="11.5" letterSpacing="3.2" fill="var(--color-washi)" className="font-sans uppercase">
-        <textPath href="#seal-circle">Komorebi · Japan, in its own time ·</textPath>
+        <textPath href="#seal-circle">Komorebi · {t('Japan, in its own time')} ·</textPath>
       </text>
       <text x="60" y="68" textAnchor="middle" fontSize="22" fill="var(--color-washi)" className="font-jp">
         木
@@ -23,10 +24,9 @@ export function StayIntro() {
   return (
     <div className="px-gutter py-section">
       <header className="mb-14 max-w-[62rem] lg:mb-[3.5rem]">
-        <SplitWords as="h2" text="Where you'll sleep" className="text-h2" />
+        <SplitWords as="h2" text={t('Where you’ll sleep')} className="text-h2" />
         <Reveal as="p" className="mt-5 max-w-[36ch] text-lead lg:mt-[1.4vw]">
-          Ryokan, temple lodgings, old wooden townhouses and mountain inns. Each one chosen for its people as much as its
-          rooms.
+          {t('Ryokan, temple lodgings, old wooden townhouses and mountain inns. Each one chosen for its people as much as its rooms.')}
         </Reveal>
       </header>
       <div className="grid grid-cols-4 gap-grid">
@@ -47,9 +47,7 @@ export function StayIntro() {
         </Reveal>
         <Reveal delay={0.2} className="col-span-2 self-end md:col-span-1 md:row-start-1">
           <p className="text-body">
-            A ryokan where the okami pours your first tea. A temple where you wake for the morning prayers, if you want to.
-            A wooden townhouse with your own key and a cypress tub. We choose fewer places and stay longer, so the room
-            becomes yours.
+            {t('A ryokan where the okami pours your first tea. A temple where you wake for the morning prayers, if you want to. A wooden townhouse with your own key and a cypress tub. We choose fewer places and stay longer, so the room becomes yours.')}
           </p>
         </Reveal>
       </div>

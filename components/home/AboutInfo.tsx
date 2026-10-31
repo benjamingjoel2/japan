@@ -1,3 +1,4 @@
+import { t, tx } from '@/lib/i18n/server';
 import { about } from '@/data/about';
 import { Media } from '@/components/ui/Media';
 import { Reveal, SplitWords } from '@/components/ui/Reveal';
@@ -6,11 +7,11 @@ import { KyotoSunrise, MicroSeasonNow, TokyoClock } from '@/components/features/
 
 export function AboutInfo() {
   return (
-    <section id="komorebi" aria-label="About Komorebi" className="relative -mt-[100svh] bg-washi px-gutter py-section">
+    <section id="komorebi" aria-label={t('About Komorebi')} className="relative -mt-[100svh] bg-washi px-gutter py-section">
       <header className="mb-[var(--section-header,3.5rem)] max-w-[62rem]">
-        <SplitWords as="h2" text="Japan, in its own time" className="text-h2" />
+        <SplitWords as="h2" text={t('Japan, in its own time')} className="text-h2" />
         <Reveal as="p" className="mt-5 max-w-[34ch] text-lead lg:mt-[1.4vw]">
-          {about.lead}
+          {t(about.lead)}
         </Reveal>
       </header>
 
@@ -22,7 +23,7 @@ export function AboutInfo() {
           />
           <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-l from-sumi/50 via-sumi/10 to-transparent" />
           <p className="absolute top-4 right-4 max-w-[22rem] text-body text-washi md:top-[1.4vw] md:right-[1.4vw]">
-            {about.intro[0]}
+            {t(about.intro[0])}
           </p>
         </Reveal>
 
@@ -30,31 +31,31 @@ export function AboutInfo() {
           <div className="relative overflow-hidden rounded-media bg-washi-deep/60 p-4">
             <JapanMap
               className="mx-auto h-auto w-full max-w-[16rem] text-sumi"
-              points={[{ id: 'kyoto', lat: 35.0116, lng: 135.7681, label: 'Kyoto' }]}
+              points={[{ id: 'kyoto', lat: 35.0116, lng: 135.7681, label: t('Kyoto') }]}
               highlight="kyoto"
               land="var(--color-washi)"
-              title="Map of Japan with Kyoto marked"
+              title={t('Map of Japan with Kyoto marked')}
             />
           </div>
           <dl className="grid grid-cols-2 gap-x-5 gap-y-3 border-t border-line pt-3 md:grid-cols-1 lg:grid-cols-2">
             <div className="flex flex-col">
-              <dt className="label">Country</dt>
-              <dd className="text-label">Japan</dd>
+              <dt className="label">{t('Country')}</dt>
+              <dd className="text-label">{t('Japan')}</dd>
             </div>
             <div className="flex flex-col">
-              <dt className="label">Tokyo time</dt>
+              <dt className="label">{t('Tokyo time')}</dt>
               <dd className="text-label">
                 <TokyoClock /> <span className="text-moss">(GMT+9)</span>
               </dd>
             </div>
             <div className="col-span-2 flex flex-col md:col-span-1 lg:col-span-2">
-              <dt className="label">Micro-season, today</dt>
+              <dt className="label">{t('Micro-season, today')}</dt>
               <dd className="text-label">
                 <MicroSeasonNow />
               </dd>
             </div>
             <div className="flex flex-col">
-              <dt className="label">Sunrise in Kyoto</dt>
+              <dt className="label">{t('Sunrise in Kyoto')}</dt>
               <dd className="text-label">
                 <KyotoSunrise />
               </dd>

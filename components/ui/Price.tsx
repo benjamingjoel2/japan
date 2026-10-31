@@ -2,22 +2,25 @@
 
 import { currencyOrder, ratesAsOf } from '@/config/currency';
 import { formatPrice, useCurrency } from '@/lib/currency';
+import { useT } from '@/components/i18n/I18nProvider';
 
 export function Price({ jpy, className = '' }: { jpy: number; className?: string }) {
   const { currency } = useCurrency();
+  const { t } = useT();
   return (
     <span className={className}>
-      from {formatPrice(jpy, currency)}
-      {currency !== 'JPY' && <span className="sr-only"> (approximate)</span>}
+      {t('From {price}', { price: formatPrice(jpy, currency) })}
+      {currency !== 'JPY' && <span className="sr-only"> ({t('approximate')})</span>}
     </span>
   );
 }
 
 export function CurrencySwitcher({ className = '' }: { className?: string }) {
   const { currency, setCurrency } = useCurrency();
+  const { t } = useT();
   return (
     <div className={`flex flex-wrap items-center gap-3 ${className}`}>
-      <div role="radiogroup" aria-label="Currency" className="flex rounded-full border border-line p-0.5">
+      <div role="radiogroup" aria-label={t('Currency')} className="flex rounded-full border border-line p-0.5">
         {currencyOrder.map((c) => (
           <button
             key={c}
@@ -34,7 +37,7 @@ export function CurrencySwitcher({ className = '' }: { className?: string }) {
         ))}
       </div>
       <span className="text-[12px] text-moss">
-        Per person, sharing. Non-yen prices approximate (rates as of {ratesAsOf}).
+        {t('Per person, sharing. Non-yen prices approximate (rates as of {date}).', { date: ratesAsOf })}
       </span>
     </div>
   );

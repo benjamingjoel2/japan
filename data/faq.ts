@@ -236,8 +236,8 @@ export const faq: FaqItem[] = [
   {
     q: 'How do deposits and cancellations work?',
     a: [
-      'Placeholder terms, to be confirmed: a deposit secures your journey once you approve the plan, with the balance due a set number of weeks before travel.',
-      'Cancellation charges rise as your travel date gets closer, because inns and guides are booked in your name. Our full booking conditions will set out the exact terms, and we strongly recommend travel insurance from the moment you book.',
+      'A deposit secures your journey once you approve the plan, with the balance due before travel. The amounts and dates are set out in your written quote.',
+      'Cancellation charges rise as your travel date gets closer, because inns and guides are booked in your name. Our Booking Terms explain how it works, and we strongly recommend travel insurance from the moment you book.',
     ],
     images: [
       {
@@ -251,6 +251,5 @@ export const faq: FaqItem[] = [
         alt: 'A notebook with a hand-written itinerary and a pressed leaf',
       },
     ],
-    verify: 'Placeholder terms. Replace with final booking conditions before launch.',
   },
 ];
