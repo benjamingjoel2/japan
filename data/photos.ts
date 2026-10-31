@@ -167,7 +167,7 @@ export const photos: Record<string, Photo> = {
   // included:Onsen
   "Steam rising from an outdoor stone bath at dusk, cedar forest": { photo: 'photo-1761929586535-589bc67b34a2', alt: "Covered outdoor hot spring bath in snow at dusk, lamps glowing", photographer: "hiding ninja" },
   // included:Luggage forwarding
-  "Traveller with a light daypack on an empty rural platform, Kiso Valley": { photo: 'photo-1788508601000-81e5c175cf60', alt: "A quiet rural train platform with fallen leaves beside a wooden house", photographer: "Jong Hyuk Lee" },
+  "Traveller with a light daypack on an empty rural platform, Kiso Valley": { photo: 'photo-1654686534917-bc9b4c7a652a', alt: "A single suitcase standing on a station platform beside the yellow tactile paving", photographer: "Anastasiia Nelen" },
   // included:Your specialist on call
   "Phone resting on a ryokan writing desk beside a paper lantern": { photo: 'photo-1759310708340-90eba93e94e4', alt: "Traditional Japanese room with a hanging paper lantern, low desk and garden view", photographer: "5010" },
   // ryokan:Arrival

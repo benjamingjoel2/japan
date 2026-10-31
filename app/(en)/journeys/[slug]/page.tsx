@@ -8,14 +8,13 @@ import { seasonsForMonths, formatRange } from '@/lib/seasons';
 import { pageMeta } from '@/lib/seo';
 import { site } from '@/config/site';
 import { Media } from '@/components/ui/Media';
-import { Price, CurrencySwitcher } from '@/components/ui/Price';
+import { Price } from '@/components/ui/Price';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { HeadingWords } from '@/components/ui/HeadingWords';
 import { SpecTable } from '@/components/ui/SpecTable';
 import { StayCard, JourneyCard, monthsLabel } from '@/components/cards/Cards';
 import { JsonLd } from '@/components/ui/JsonLd';
-import { VerifyTag } from '@/components/ui/Tags';
 
 export function generateStaticParams() {
   return journeys.map((j) => ({ slug: j.slug }));
@@ -56,7 +55,6 @@ export default async function JourneyPage({ params }: { params: Promise<{ slug: 
             '@type': 'ItemList',
             itemListElement: j.itinerary.map((d) => ({ '@type': 'ListItem', position: d.day, name: `${d.title}, ${d.place}` })),
           },
-          offers: { '@type': 'Offer', price: j.fromJPY, priceCurrency: 'JPY', url: `${site.url}${lhref(`/journeys/${j.slug}`)}` },
           provider: { '@type': 'TravelAgency', name: site.name, url: site.url, email: site.company.email, address: { '@type': 'PostalAddress', ...site.company.postal } },
         }}
       />
@@ -87,7 +85,6 @@ export default async function JourneyPage({ params }: { params: Promise<{ slug: 
           <p className="font-display text-[34px] leading-none lg:text-[2.6vw]">
             <Price jpy={j.fromJPY} />
           </p>
-          <CurrencySwitcher />
           <SpecTable
             className="border-t border-line pt-4"
             rows={[
@@ -110,9 +107,6 @@ export default async function JourneyPage({ params }: { params: Promise<{ slug: 
             </ul>
           </div>
           <Button href={`/plan?journey=${j.slug}`}>{t('Plan this with us')}</Button>
-          <p className="flex items-center gap-2 text-[12px] text-moss">
-            <VerifyTag /> {t('Prices are indicative placeholders, per person sharing.')}
-          </p>
         </aside>
       </section>
 

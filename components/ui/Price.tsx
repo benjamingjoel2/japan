@@ -4,9 +4,16 @@ import { currencyOrder, ratesAsOf } from '@/config/currency';
 import { formatPrice, useCurrency } from '@/lib/currency';
 import { useT } from '@/components/i18n/I18nProvider';
 
+/**
+ * Journey prices are quoted per trip, so we show "Price on request" for now. `jpy` stays in the
+ * data (and `showPrices` below) so published "from" prices can be switched back on in one place.
+ */
+const showPrices = false;
+
 export function Price({ jpy, className = '' }: { jpy: number; className?: string }) {
   const { currency } = useCurrency();
   const { t } = useT();
+  if (!showPrices) return <span className={className}>{t('Price on request')}</span>;
   return (
     <span className={className}>
       {t('From {price}', { price: formatPrice(jpy, currency) })}
