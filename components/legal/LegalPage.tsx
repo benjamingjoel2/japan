@@ -47,6 +47,26 @@ export function LegalPage({ slug }: { slug: LegalDoc['slug'] }) {
               {s.body.map((p, i) => (
                 <p key={i}>{fill(p)}</p>
               ))}
+              {s.table && (
+                <div className="overflow-x-auto" role="region" aria-label={s.title} tabIndex={0}>
+                  <table>
+                    <thead>
+                      <tr>
+                        {s.table.head.map((c) => (
+                          <th key={c} scope="col">{c}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {s.table.rows.map((r) => (
+                        <tr key={r[0]}>
+                          {r.map((c, i) => (i === 0 ? <td key={i}><code>{c}</code></td> : <td key={i}>{c}</td>))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </section>
           ))}
           <section>

@@ -1,10 +1,10 @@
 // Legal pages. Plain English source text; translated per locale like the rest of /data.
 // {brand}, {email} and {address} are filled in when the page renders.
 
-export type LegalSection = { title: string; body: string[] };
+export type LegalSection = { title: string; body: string[]; table?: { head: string[]; rows: string[][] } };
 export type LegalDoc = { slug: 'privacy' | 'booking-terms' | 'cookies'; title: string; label: string; lead: string; description: string; sections: LegalSection[] };
 
-export const legalUpdated = '2026-10-30';
+export const legalUpdated = '2026-11-01';
 
 export const legalDocs: LegalDoc[] = [
   {
@@ -42,12 +42,14 @@ export const legalDocs: LegalDoc[] = [
           'We share only what is needed to arrange your journey with the people who provide it, such as inns, hotels, guides, drivers, transport companies and activity partners in Japan, and with service providers who help us run our business, such as email, hosting and secure storage providers.',
           'Some of these partners are outside your home country, including in Japan. Where the law requires it, we make sure your information is protected by appropriate safeguards, such as standard contractual clauses.',
           'We may also disclose information where the law requires us to, or to protect the safety of a traveller.',
+          'Enquiries sent through the planning form are received by a server function run by our hosting provider, Vercel, and passed to our planning team. They are not added to any marketing list.',
         ],
       },
       {
         title: 'How long we keep it',
         body: [
           'If you enquire but do not travel with us, we keep your enquiry for up to two years so that we can pick up the conversation again, then delete it. If you travel with us, we keep booking records for as long as accounting, tax and legal requirements oblige us to, usually up to seven years after your journey.',
+          'Server logs: kept by our hosting provider for a short period (no more than 30 days) for security, then deleted.',
         ],
       },
       {
@@ -62,6 +64,14 @@ export const legalDocs: LegalDoc[] = [
         body: [
           'We use reputable providers, encrypted connections and limited access to keep your information safe. No method of transmission over the internet is completely secure, so please do not send card details or passport scans by ordinary email unless we ask you to use a secure method.',
         ],
+      },
+      {
+        title: 'Cookies',
+        body: ['This website sets no advertising or tracking cookies. What it stores on your device is explained in our Cookie Policy.'],
+      },
+      {
+        title: 'Children',
+        body: ['This website and our services are meant for adults. We do not knowingly collect personal data directly from children under 16. Details of children travelling in a family group are given to us by a parent or guardian and are used only to plan and run the trip.'],
       },
       {
         title: 'Changes to this policy',
@@ -101,6 +111,7 @@ export const legalDocs: LegalDoc[] = [
         body: [
           'Your booking is confirmed when you accept your quote, pay the deposit stated in it, and we send you written confirmation. A contract between you and us exists from that moment.',
           'The balance is due by the date stated in your quote, which is usually some weeks before you travel. If you book close to your travel date, the full price may be due at the time of booking. If the balance is not paid on time, we may treat the booking as cancelled by you and apply the cancellation charges below.',
+          'Unless your quote states otherwise, the deposit is 30% of the total price and the balance is due 60 days before departure; if you book within 60 days of departure, the full price is due when you book.',
         ],
       },
       {
@@ -112,7 +123,8 @@ export const legalDocs: LegalDoc[] = [
       {
         title: 'If you cancel',
         body: [
-          'You may cancel your booking at any time by writing to us. Because inns, guides and services are reserved in your name, cancellation charges apply, and they increase as your departure date gets closer. The charges for your journey are set out in your quote and confirmation. They will never be more than the total price of your journey.',
+          'You may cancel at any time by writing to us; the cancellation takes effect on the day we receive it. Because we commit money to suppliers on your behalf, unless your quote states otherwise the following charges apply, as a percentage of the total price: more than 60 days before departure, loss of the deposit (30%); 60 to 31 days, 50%; 30 to 15 days, 75%; 14 days or fewer, or if you do not travel, 100%.',
+          'Where a supplier\'s own terms are stricter, for example non-refundable flights, permits or peak-season stays, your quote will say so and those charges apply instead. Your travel insurance may cover cancellation charges.',
           'If you have to cancel, your travel insurance may cover some or all of the charges, which is one of the reasons we ask you to take out insurance as soon as you book.',
         ],
       },
@@ -164,8 +176,12 @@ export const legalDocs: LegalDoc[] = [
       {
         title: 'Governing law',
         body: [
-          'These terms and any contract between us are governed by the law that applies to our business, without affecting any mandatory consumer protection rights you have where you live. Any dispute will be dealt with by the competent courts.',
+          'These terms, and any dispute arising from them, are governed by the laws of Japan, and the courts of Japan have jurisdiction. If you live elsewhere, this does not take away any mandatory rights you have under the consumer law of your country of residence, and you may also bring proceedings there. We will always try to resolve a complaint by agreement first.',
         ],
+      },
+      {
+        title: 'Data protection',
+        body: ['We use your personal information only as described in our Privacy Policy.'],
       },
     ],
   },
@@ -185,10 +201,17 @@ export const legalDocs: LegalDoc[] = [
       {
         title: 'What we store',
         body: [
-          'The website sets no cookies. It uses one item of local storage in your browser, which is only created if you choose a currency for our prices:',
-          'komorebi:currency: remembers the currency you chose for prices (yen, US dollars, pounds, euros or Australian dollars). It stays in your browser until you clear it, and it is never sent to us.',
+          'The website sets no cookies. It uses one item of local storage in your browser, which is only created if you choose a currency for our prices. It is never sent to us.',
           'Our hosting provider may use strictly necessary technical measures to deliver the site securely and protect it from abuse. These do not track you across other websites.',
         ],
+        table: {
+          head: ['Name', 'Purpose', 'Duration', 'Type'],
+          rows: [['komorebi:currency', 'Remembers the currency you chose for prices (yen, US dollars, pounds, euros or Australian dollars).', 'Until you clear your browser storage', 'Local storage, set by this site']],
+        },
+      },
+      {
+        title: 'Third-party content',
+        body: ['Photographs are loaded directly from our image delivery provider’s servers, so your browser sends it your IP address and browser details when it requests an image; no cookies are set through these requests. Our typefaces are served from this website. The site does not embed maps, videos or social-media widgets.'],
       },
       {
         title: 'Consent',
@@ -202,6 +225,10 @@ export const legalDocs: LegalDoc[] = [
           'You can delete the stored currency choice at any time by clearing your browser’s site data for this website, or by browsing in a private window, where nothing is kept after you close it. Prices will then show in yen until you choose another currency.',
           'If you have any questions, write to {email}.',
         ],
+      },
+      {
+        title: 'Changes to this policy',
+        body: ['If the website starts storing anything new, we will update this page, and the date at the top, before it does.'],
       },
     ],
   },
