@@ -48,7 +48,7 @@ export function JourneysVideo() {
         <div className="sticky top-0 flex h-svh items-center justify-center overflow-hidden">
           <h2
             id="journeys-h"
-            className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-display text-[18vw] leading-none text-sumi lg:text-[15vw]"
+            className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-display text-[14vw] leading-none text-sumi lg:text-[min(6.5vw,6rem)]"
           >
             {t('Journeys')}
           </h2>

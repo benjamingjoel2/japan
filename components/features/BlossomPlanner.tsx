@@ -6,7 +6,6 @@ import { useT } from '@/components/i18n/I18nProvider';
 import { msg } from '@/lib/i18n/config';
 import type { BlossomRegion, MonthDay } from '@/data/types';
 import { dayOfYear, formatMonthDay, formatRange, monthName } from '@/lib/seasons';
-import { JapanMap, project } from './JapanMap';
 
 type Mode = 'blossom' | 'leaves';
 
@@ -105,48 +104,7 @@ export function BlossomPlanner({
         </p>
       </div>
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-grid">
-        {/* Map */}
-        <figure className="lg:sticky lg:top-[calc(var(--header-h)+5rem)] lg:self-start">
-          <JapanMap className="mx-auto h-auto w-full max-w-[34rem] text-sumi" title={t('Map of Japan showing where {thing} is typically {state} on the chosen date', { thing: t(cfg.label).toLowerCase(), state: t(cfg.verb) })}>
-            {rows.map((r) => {
-              const [x, y] = project(r.lat, r.lng);
-              const st = nominal(r, mode) ? 'nominal' : state(r, mode, doy);
-              const on = hover === r.id;
-              return (
-                <g key={r.id} onMouseEnter={() => setHover(r.id)} onMouseLeave={() => setHover(null)}>
-                  {st === 'now' && <circle cx={x} cy={y} r={30} fill={cfg.color} opacity={0.2} className="motion-safe:animate-pulse" />}
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r={on ? 15 : 11}
-                    fill={st === 'now' ? cfg.color : st === 'soon' ? 'var(--color-washi)' : 'var(--color-washi-deep)'}
-                    stroke={st === 'past' || st === 'nominal' ? 'var(--color-moss-light)' : cfg.color}
-                    strokeWidth={st === 'soon' ? 4 : 2}
-                    strokeDasharray={st === 'nominal' ? '4 4' : undefined}
-                  />
-                  {(on || st === 'now') && (
-                    <text x={x + 20} y={y + 8} fontSize={24} fill="currentColor" stroke="var(--color-washi)" strokeWidth={6} paintOrder="stroke">
-                      {r.name}
-                    </text>
-                  )}
-                </g>
-              );
-            })}
-          </JapanMap>
-          <figcaption className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-sumi-soft">
-            <span className="flex items-center gap-1.5">
-              <span className="size-2.5 rounded-full" style={{ background: cfg.color }} /> {t('Typically {state}', { state: t(cfg.verb) })}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="size-2.5 rounded-full border-2" style={{ borderColor: cfg.color }} /> {t('Within two weeks')}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="size-2.5 rounded-full border border-moss-light bg-washi-deep" /> {t('Later or past')}
-            </span>
-          </figcaption>
-        </figure>
-
+      <div className="mt-8">
         {/* Timeline: the wave */}
         <figure>
           <figcaption className="mb-3 flex items-center justify-between text-[13px] text-sumi-soft">

@@ -2,7 +2,6 @@ import { t, tx } from '@/lib/i18n/server';
 import { about } from '@/data/about';
 import { Media } from '@/components/ui/Media';
 import { Reveal, SplitWords } from '@/components/ui/Reveal';
-import { JapanMap } from '@/components/features/JapanMap';
 import { KyotoSunrise, MicroSeasonNow, TokyoClock } from '@/components/features/LiveInfo';
 
 export function AboutInfo() {
@@ -28,15 +27,6 @@ export function AboutInfo() {
         </Reveal>
 
         <Reveal delay={0.15} className="flex flex-col gap-grid">
-          <div className="relative overflow-hidden rounded-media bg-washi-deep/60 p-4">
-            <JapanMap
-              className="mx-auto h-auto w-full max-w-[16rem] text-sumi"
-              points={[{ id: 'kyoto', lat: 35.0116, lng: 135.7681, label: t('Kyoto') }]}
-              highlight="kyoto"
-              land="var(--color-washi)"
-              title={t('Map of Japan with Kyoto marked')}
-            />
-          </div>
           <dl className="grid grid-cols-2 gap-x-5 gap-y-3 border-t border-line pt-3 md:grid-cols-1 lg:grid-cols-2">
             <div className="flex flex-col">
               <dt className="label">{t('Country')}</dt>
