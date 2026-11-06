@@ -16,7 +16,7 @@ export function Manners() {
         {tx(manners).map((m, i) => (
           <li key={m.line} className="group w-full">
             <Reveal amount={0.5} className="flex flex-col items-center py-2 text-center md:py-[0.6vw]">
-              <span className="font-display text-[11vw] leading-[0.85] font-light tracking-[-0.01em] text-moss-light uppercase transition-colors duration-500 group-hover:text-moss md:text-[8vw]">
+              <span className="font-display text-[11vw] leading-[0.85] font-light tracking-[-0.01em] text-moss-light uppercase transition-colors duration-500 group-hover:text-moss md:text-[min(5.5vw,6rem)]">
                 {m.line}
               </span>
               <span className="mt-2 flex max-w-[44ch] items-start gap-2 text-left text-body text-sumi-soft md:mt-[0.5vw]">

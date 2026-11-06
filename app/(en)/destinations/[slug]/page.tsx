@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { HeadingWords } from '@/components/ui/HeadingWords';
 import { JourneyCard, StayCard } from '@/components/cards/Cards';
-import { JapanMap } from '@/components/features/JapanMap';
 import { VerifyTag } from '@/components/ui/Tags';
 
 export function generateStaticParams() {
@@ -58,16 +57,6 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
             </p>
             <HeadingWords text={d.name} className="mt-3 max-w-[16ch] text-h2" />
             <p className="mt-4 max-w-[40ch] text-lead">{d.tagline}</p>
-          </div>
-          <div className="hidden w-40 shrink-0 md:block lg:w-[12vw]">
-            <JapanMap
-              points={[{ id: d.slug, lat: d.lat, lng: d.lng }]}
-              highlight={d.slug}
-              land="rgb(244 239 228 / 0.18)"
-              stroke="rgb(244 239 228 / 0.5)"
-              className="h-auto w-full"
-              title={t('Map showing {place}', { place: d.name })}
-            />
           </div>
         </div>
       </header>

@@ -1764,5 +1764,21 @@
  "Enquiries sent through the planning form are received by a server function run by our hosting provider, Vercel, and passed to our planning team. They are not added to any marketing list.": "Les demandes envoyées via le formulaire de projet sont reçues par une fonction serveur exécutée par notre hébergeur, Vercel, puis transmises à notre équipe de conception. Elles ne sont ajoutées à aucune liste marketing.",
  "The website sets no cookies. It uses one item of local storage in your browser, which is only created if you choose a currency for our prices. It is never sent to us.": "Le site ne dépose aucun cookie. Il utilise un seul élément de stockage local dans votre navigateur, créé uniquement si vous choisissez une devise pour nos prix. Il ne nous est jamais envoyé.",
  "Remembers the currency you chose for prices (yen, US dollars, pounds, euros or Australian dollars).": "Mémorise la devise choisie pour les prix (yen, dollars américains, livres, euros ou dollars australiens).",
- "komorebi:currency": "komorebi:currency"
+ "komorebi:currency": "komorebi:currency",
+ "Slow, private journeys through the seasons of Japan.": "Des voyages privés et sans hâte, au fil des saisons du Japon.",
+ "Travel": "Voyager",
+ "Seasons": "Saisons",
+ "Komorebi": "Komorebi",
+ "Snow in the Japan Alps and onsen towns at their quietest.": "La neige sur les Alpes japonaises et des villes thermales plus calmes que jamais.",
+ "Powder snow in Hokkaido, and the first plum blossom in Kyoto.": "La poudreuse à Hokkaido et les premières fleurs de prunier à Kyoto.",
+ "The first cherry blossom opens in the south and moves north.": "Les premiers cerisiers fleurissent au sud, puis la floraison remonte vers le nord.",
+ "Cherry blossom in Kyoto and Tokyo: we go early, before the crowds.": "Les cerisiers en fleur à Kyoto et Tokyo : nous partons tôt, avant la foule.",
+ "Fresh green maples, long days and clear mornings around Fuji.": "Des érables d’un vert tendre, de longues journées et des matins clairs autour du Fuji.",
+ "Rainy season: moss gardens and cedar trails at their greenest.": "La saison des pluies : jardins de mousse et sentiers de cèdres au plus vert.",
+ "Summer festivals on the mainland, and slow island days in the far south.": "Les fêtes d’été sur l’archipel principal, et des journées tranquilles sur les îles du grand sud.",
+ "Lantern evenings and the art islands of the Inland Sea.": "Des soirées aux lanternes et les îles d’art de la mer Intérieure.",
+ "The heat breaks and the old post road through the Kiso Valley is quiet.": "La chaleur retombe et l’ancienne route postale de la vallée de Kiso est paisible.",
+ "Autumn colour starts in the mountains; the best walking weather of the year.": "Les couleurs d’automne gagnent les montagnes ; le meilleur temps de l’année pour marcher.",
+ "Maple season in Kyoto, seen at opening time.": "La saison des érables à Kyoto, à l’heure de l’ouverture.",
+ "Crisp, clear days, winter crab and the first snow in Kanazawa.": "Des journées fraîches et claires, le crabe d’hiver et les premières neiges à Kanazawa."
 }

@@ -5,7 +5,6 @@ import { useMemo, useState } from 'react';
 import { useT } from '@/components/i18n/I18nProvider';
 import { msg } from '@/lib/i18n/config';
 import type { QuietPairing } from '@/data/types';
-import { JapanMap, project } from './JapanMap';
 import { VerifyTag } from '@/components/ui/Tags';
 
 const kinds: { id: QuietPairing['kind'] | 'all'; label: string }[] = [
@@ -59,26 +58,7 @@ export function QuietExplorer({ pairings: quietPairings, destinationNames }: { p
         </span>
       </div>
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-grid">
-        <figure className="lg:sticky lg:top-[calc(var(--header-h)+5rem)] lg:self-start">
-          <JapanMap className="mx-auto h-auto w-full max-w-[32rem] text-sumi" title={t('Map of Quiet Japan pairings')}>
-            {list.map((p) => {
-              const [x, y] = project(p.lat, p.lng);
-              const on = hover === p.id;
-              return (
-                <a key={p.id} href={`#${p.id}`} aria-label={p.quieter} onMouseEnter={() => setHover(p.id)} onMouseLeave={() => setHover(null)}>
-                  <circle cx={x} cy={y} r={on ? 16 : 10} fill={on ? 'var(--color-beni)' : 'var(--color-moss)'} stroke="var(--color-washi)" strokeWidth={3} />
-                  {on && (
-                    <text x={x + 20} y={y + 8} fontSize={24} fill="currentColor" stroke="var(--color-washi)" strokeWidth={6} paintOrder="stroke">
-                      {p.quieter.split(',')[0]}
-                    </text>
-                  )}
-                </a>
-              );
-            })}
-          </JapanMap>
-          <figcaption className="mt-3 text-[13px] text-sumi-soft">{t('Hover a pin or a card to match them up.')}</figcaption>
-        </figure>
+      <div className="mt-8">
 
         <ul className="flex flex-col">
           {list.map((p) => (

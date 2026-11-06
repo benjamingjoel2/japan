@@ -130,7 +130,7 @@ export function Header() {
               })}
             </ul>
             <LanguageSelector className={`text-label ${light ? 'text-washi' : 'text-sumi'}`} />
-            <Button href={site.cta.href} variant={light ? 'outline-light' : 'dark'}>
+            <Button href={site.cta.href} variant={light ? 'light' : 'dark'}>
               {t(site.cta.label)}
             </Button>
           </nav>
