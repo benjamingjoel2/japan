@@ -4,36 +4,8 @@ import Image, { getImageProps } from 'next/image';
 import { preload } from 'react-dom';
 import { useT } from '@/components/i18n/I18nProvider';
 import type { Media as MediaT } from '@/data/types';
-import { palettes, seedOf } from '@/lib/placeholder';
+import { palettes } from '@/lib/tones';
 import { photoFor } from '@/lib/unsplash';
-
-export function placeholderUrl(media: Pick<MediaT, 'tone' | 'subject'>) {
-  return `/ph/${media.tone}/${seedOf(media.subject)}.svg`;
-}
-
-/** Generated placeholder artwork (an SVG file), with the intended shot written on it. */
-export function Placeholder({ media, label = true, priority }: { media: MediaT; label?: boolean; priority?: boolean }) {
-  const { t } = useT();
-  const p = palettes[media.tone] ?? palettes.paper;
-  return (
-    <div className="absolute inset-0 overflow-hidden" style={{ background: `linear-gradient(160deg, ${p.bg[1]}, ${p.bg[0]})` }}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- static SVG art, nothing to optimise */}
-      <img
-        src={placeholderUrl(media)}
-        alt=""
-        loading={priority ? 'eager' : 'lazy'}
-        decoding="async"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      {label && (
-        <span className="pointer-events-none absolute right-2 bottom-2 left-2 font-sans text-[10px] leading-tight tracking-wide text-white/75 uppercase md:text-[11px]">
-          <span className="sr-only">{t('Placeholder image:')} </span>
-          {t(media.subject)}
-        </span>
-      )}
-    </div>
-  );
-}
 
 type Props = {
   media: MediaT;
@@ -52,9 +24,9 @@ type Props = {
 
 /**
  * Fills its (relative) parent. Order of preference: the media's own `src` (your photography),
- * then the Unsplash photo mapped to its subject in /data/photos.ts, then generated placeholder art.
+ * then the Unsplash photo mapped to its subject in /data/photos.ts, then a plain colour block (no drawn art).
  */
-export function Media({ media, sizes = '100vw', priority, className = '', label, ratio, phoneRatio }: Props) {
+export function Media({ media, sizes = '100vw', priority, className = '', ratio, phoneRatio }: Props) {
   const { t } = useT();
   const tone = palettes[media.tone] ?? palettes.paper;
   if (media.src) {
@@ -95,8 +67,6 @@ export function Media({ media, sizes = '100vw', priority, className = '', label,
     );
   }
   return (
-    <div role="img" aria-label={t(media.alt ?? media.subject)} className={`absolute inset-0 ${className}`}>
-      <Placeholder media={media} label={label} priority={priority} />
-    </div>
+    <div role="img" aria-label={t(media.alt ?? media.subject)} className={`absolute inset-0 ${className}`} style={{ backgroundColor: tone.bg[0] }} />
   );
 }

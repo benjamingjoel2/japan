@@ -1,13 +1,14 @@
 'use client';
 
 import { useT } from '@/components/i18n/I18nProvider';
-export function PlaceholderTag({ className = '' }: { className?: string }) {
+/** Marks a stay as an example of the kind of inn we book; the real inn is named in the proposal. */
+export function ExampleTag({ className = '' }: { className?: string }) {
   const { t } = useT();
   return (
     <span
       className={`inline-flex items-center rounded-full border border-current/30 px-2 py-0.5 text-[11px] tracking-wide uppercase ${className}`}
     >
-      {t('Placeholder')}
+      {t('Example stay')}
     </span>
   );
 }

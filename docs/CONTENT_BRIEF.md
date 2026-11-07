@@ -54,5 +54,6 @@ Stays (placeholder names, invented):
 'leaf' | 'mist' | 'dusk' | 'night' | 'blossom' | 'maple' | 'snow' | 'sea' | 'stone' | 'cedar' | 'lantern' | 'paper'.
 `subject` describes the photograph we want, concretely, e.g. "Light through maple leaves, Tōfuku-ji, 7am".
 `alt` is a short accessible description of the same.
+Every subject is mapped to a real photograph in /data/photos.ts. If one is ever missing, `Media` shows a plain block in the tone's colour; there is no drawn placeholder art (owner decision, 7 Nov 2026). Stays carry an "Example stay" tag on the site.
 
 Types live in /data/types.ts. Import with `import type { ... } from './types'`.

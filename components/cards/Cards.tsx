@@ -3,7 +3,7 @@ import type { Destination, Journey, Stay } from '@/data/types';
 import { Media } from '@/components/ui/Media';
 import { Price } from '@/components/ui/Price';
 import { SpecTable } from '@/components/ui/SpecTable';
-import { PlaceholderTag } from '@/components/ui/Tags';
+import { ExampleTag } from '@/components/ui/Tags';
 import { monthName } from '@/lib/seasons';
 import { staySpecRows } from '@/lib/stay';
 import { getLocale, t, tx } from '@/lib/i18n/server';
@@ -45,7 +45,7 @@ export function StayCard({ s: raw, destination, priority }: { s: Stay; destinati
       <span className="flex items-center gap-2 text-[13px] text-moss">
         <span className="capitalize">{t(s.type)}</span>
         {destination && <span>· {t(destination)}</span>}
-        <PlaceholderTag />
+        <ExampleTag />
       </span>
       <span className="font-display text-[28px] leading-tight lg:text-[2vw]">{s.name}</span>
       <span className="text-body text-sumi-soft">{s.summary}</span>

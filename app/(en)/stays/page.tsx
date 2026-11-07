@@ -33,7 +33,7 @@ export default async function StaysPage({ params }: { params: Promise<{ locale?:
       <PageHeader
         label={t('Stays')}
         title={t('Where you’ll sleep')}
-        lead={t('Fewer places, longer stays. These are examples of the kinds of inns we use. Names here are placeholders until our partner list is published.')}
+        lead={t('Fewer places, longer stays. These are examples of the kinds of inns we use; the actual inn is named in your proposal, with its own photographs.')}
       />
       {types.map((ty) => {
         const list = stays.filter((s) => s.type === ty);

@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { SpecTable } from '@/components/ui/SpecTable';
 import { Reveal } from '@/components/ui/Reveal';
 import { HeadingWords } from '@/components/ui/HeadingWords';
-import { PlaceholderTag } from '@/components/ui/Tags';
+import { ExampleTag } from '@/components/ui/Tags';
 import { JourneyCard } from '@/components/cards/Cards';
 import { staySpecRows } from '@/lib/stay';
 
@@ -54,7 +54,7 @@ export default async function StayPage({ params }: { params: Promise<{ slug: str
               </Link>
             </>
           )}
-          <PlaceholderTag />
+          <ExampleTag />
         </p>
         {/* Same three-column composition as the homepage stays slider. */}
         <div className="grid grid-cols-1 gap-grid md:grid-cols-[1.25fr_1fr_0.6fr]">
