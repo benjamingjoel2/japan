@@ -17,7 +17,6 @@ export function VideoPlayer({
   media,
   src,
   className = '',
-  label = true,
   drift = false,
   priority = false,
 }: {
@@ -73,11 +72,6 @@ export function VideoPlayer({
         >
           <Media media={media} label={false} priority={priority} sizes="100vw" phoneRatio={0.5} />
         </div>
-      )}
-      {!url && label && !photoFor(media.subject) && !media.src && (
-        <span className="pointer-events-none absolute right-[var(--gutter)] bottom-3 z-[1] hidden max-w-[60%] text-right md:block text-[10px] tracking-wide text-white/60 uppercase">
-          {t('Video placeholder')} · {t(media.subject)}
-        </span>
       )}
     </div>
   );

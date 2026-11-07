@@ -7,7 +7,7 @@ import { useT } from '@/components/i18n/I18nProvider';
 import { Media } from '@/components/ui/Media';
 import { Button } from '@/components/ui/Button';
 import { SpecTable } from '@/components/ui/SpecTable';
-import { PlaceholderTag } from '@/components/ui/Tags';
+import { ExampleTag } from '@/components/ui/Tags';
 import { staySpecRows } from '@/lib/stay';
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -121,7 +121,7 @@ export function StaySlider({ stays }: { stays: Stay[] }) {
           <div className="flex flex-col gap-4 md:px-[1vw]">
             <div className="flex items-center gap-2">
               <span className="label capitalize">{t(s.type)}</span>
-              <PlaceholderTag className="text-moss" />
+              <ExampleTag className="text-moss" />
             </div>
             <h4 className="font-display text-[40px] leading-none md:text-[7vw] lg:text-[4vw]">{s.name}</h4>
             <p className="max-w-[40ch] text-body">{s.summary}</p>

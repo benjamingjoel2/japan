@@ -1,7 +1,8 @@
 import type { Stay } from './types';
 
-// All stay names below are invented placeholders, to be replaced with real partner
-// properties before launch. They do not refer to any existing ryokan, hotel or temple.
+// All stays below are examples of the kinds of inns we book, shown with an "Example stay"
+// tag. Their names are invented and do not refer to any existing ryokan, hotel or temple;
+// replace them with real partner properties before launch.
 
 export const stays: Stay[] = [
   {
