@@ -133,7 +133,6 @@
 .word-up { animation: word-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
 
 /* Blinking clock colon. */
-@keyframes fade-in { from { opacity: 0; } }
 @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.15; } }
 .blink { animation: blink 1s steps(1) infinite; color: var(--color-moss-light); }
 
