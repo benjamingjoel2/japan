@@ -88,7 +88,7 @@ export default async function SeasonsPage({ params }: { params: Promise<{ locale
                     <li
                       key={s.n}
                       id={`ko-${s.n}`}
-                      className="group scroll-mt-[calc(var(--header-h)+5rem)] border-b border-line py-5 data-[today=true]:-mx-3 data-[today=true]:rounded-media data-[today=true]:border-transparent data-[today=true]:bg-sumi data-[today=true]:px-3 data-[today=true]:text-washi"
+                      className="group scroll-mt-[calc(var(--header-h)+5rem)] border-b border-line py-5 data-[today=true]:-mx-[min(0.75rem,var(--gutter))] data-[today=true]:rounded-media data-[today=true]:border-transparent data-[today=true]:bg-sumi data-[today=true]:px-[min(0.75rem,var(--gutter))] data-[today=true]:text-washi"
                     >
                       <article className="flex h-full flex-col gap-2">
                         <header className="flex items-baseline justify-between gap-3">
